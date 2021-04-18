@@ -1,4 +1,20 @@
 <?php
+
+use Adianti\Control\TAction;
+use Adianti\Control\TWindow;
+use Adianti\Control\TPage;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Base\TElement;
+use Adianti\Widget\Container\TPanelGroup;
+use Adianti\Widget\Container\TVBox;
+use Adianti\Widget\Datagrid\TDataGrid;
+use Adianti\Widget\Datagrid\TDataGridColumn;
+use Adianti\Widget\Datagrid\TPageNavigation;
+use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Template\THtmlRenderer;
+use Adianti\Widget\Util\TXMLBreadCrumb;
+use Adianti\Wrapper\BootstrapDatagridWrapper;
+
 /**
  * ConsultaEndBlock
  *
@@ -17,6 +33,10 @@ class ConsultaEndBlock extends TPage
     {
         parent::__construct();
         
+        // dashbord info
+        $indicator1 = new THtmlRenderer('app/resources/info-box.html');
+        $indicator1->enableSection('main', ['title' => ('Total bloqueado'), 'icon' => 'boxes',  'background' => 'orange', 'value' => (float)$this->coutEndClock()]);
+
         // creates one datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
         $this->datagrid->style = 'width:100%';
@@ -43,15 +63,18 @@ class ConsultaEndBlock extends TPage
         $this->pageNavigation->setAction(new TAction([$this, 'onReload']));
 
         $panel = new TPanelGroup('Endereços Bloqueados para saída');
+        $panel->add($indicator1);        
         $panel->add($this->datagrid);
         $panel->addFooter($this->pageNavigation);
         
         $panel->addHeaderActionLink( 'PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
         $panel->addHeaderActionLink( 'CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
+
         
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
+        $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
         $vbox->add($panel);
         parent::add($vbox);
     }
@@ -100,6 +123,37 @@ class ConsultaEndBlock extends TPage
         }
     }
     
+    public function coutEndClock()
+    {
+        $query = "SELECT COUNT((TE.PREDIO + '.' + CAST( TE.RUA AS VARCHAR) + '.' + CAST (TE.BLOCO AS VARCHAR) + '.' + CAST(TE.APTO AS VARCHAR))) AS 'TOTAL'
+                  FROM TAB_END TE
+                  WHERE BLOQUEADO_SAIDA = -1
+                  AND STATUS = 4
+";     
+
+        try
+        {
+         TTransaction::open('sisdep'); // abre uma transação            
+          $conn = TTransaction::get(); // obtém a conexão
+        
+           // realiza a consulta
+           $result = $conn->query($query);
+           $res = 0;
+           foreach ($result as $row) // exibe os resultados
+           {       
+              $res = $row['TOTAL'];    
+           }
+
+           return $res;
+        
+         TTransaction::close(); // fecha a transação.
+        }
+        catch (Exception $e)
+        {
+         new TMessage('error', $e->getMessage());
+        }
+    }
+
     /**
      * Export datagrid as PDF
      */
@@ -135,6 +189,11 @@ class ConsultaEndBlock extends TPage
             new TMessage('error', $e->getMessage());
         }
     }
+
+
+    /*
+     *     
+    */
     
     /**
      * Export datagrid as CSV
