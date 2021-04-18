@@ -6,15 +6,23 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit9ca02ded2ffb55c884817c3c88c86343
 {
+    public static $files = array (
+        '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Svg\\' => 4,
+        ),
         'P' => 
         array (
             'Picqer\\Barcode\\' => 15,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
-        'L' => 
+        'K' => 
         array (
-            'Linfo\\' => 6,
+            'Kint\\' => 5,
         ),
         'F' => 
         array (
@@ -28,6 +36,10 @@ class ComposerStaticInit9ca02ded2ffb55c884817c3c88c86343
     );
 
     public static $prefixDirsPsr4 = array (
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
         'Picqer\\Barcode\\' => 
         array (
             0 => __DIR__ . '/..' . '/picqer/php-barcode-generator/src',
@@ -36,9 +48,9 @@ class ComposerStaticInit9ca02ded2ffb55c884817c3c88c86343
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'Linfo\\' => 
+        'Kint\\' => 
         array (
-            0 => __DIR__ . '/..' . '/linfo/linfo/src/Linfo',
+            0 => __DIR__ . '/..' . '/kint-php/kint/src',
         ),
         'FontLib\\' => 
         array (
@@ -57,10 +69,6 @@ class ComposerStaticInit9ca02ded2ffb55c884817c3c88c86343
     public static $prefixesPsr0 = array (
         'S' => 
         array (
-            'Svg\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src',
-            ),
             'Spreadsheet' => 
             array (
                 0 => __DIR__ . '/..' . '/pablodalloglio/spreadsheet_excel_writer',
@@ -94,7 +102,8 @@ class ComposerStaticInit9ca02ded2ffb55c884817c3c88c86343
     );
 
     public static $classMap = array (
-        'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
         'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
         'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
