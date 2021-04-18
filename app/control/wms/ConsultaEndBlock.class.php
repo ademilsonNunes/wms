@@ -38,11 +38,15 @@ class ConsultaEndBlock extends TPage
         // creates the datagrid model
         $this->datagrid->createModel();
         
+        // creates the page navigation
+        $this->pageNavigation = new TPageNavigation;
+        $this->pageNavigation->setAction(new TAction([$this, 'onReload']));
+
         $panel = new TPanelGroup('Endereços Bloqueados para saída');
-        $panel->add( $this->datagrid );
-        $panel->addFooter('footer');
+        $panel->add($this->datagrid);
+        $panel->addFooter($this->pageNavigation);
         
-    //    $panel->addHeaderActionLink( 'PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
+        $panel->addHeaderActionLink( 'PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
         $panel->addHeaderActionLink( 'CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
         
         // wrap the page content using vertical box
