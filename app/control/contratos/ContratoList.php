@@ -56,7 +56,7 @@ class ContratoList extends TPage
         
         // add the fields
         $this->form->addFields( [ new TLabel('Id') ], [ $id ] );
-        $this->form->addFields( [ new TLabel('Cliente') ], [ $cliente_id ] );
+        $this->form->addFields( [ new TLabel('Fornecedor') ], [ $cliente_id ] );
         $this->form->addFields( [ new TLabel('Tipo Contrato') ], [ $tipo_contrato_id ] );
         $this->form->addFields( [ new TLabel('Ativo') ], [ $ativo ] );
 
@@ -85,7 +85,7 @@ class ContratoList extends TPage
 
         // creates the datagrid columns
         $column_id = new TDataGridColumn('id', 'Id', 'center',  '10%');
-        $column_cliente_id = new TDataGridColumn('cliente->nome_fantasia', 'Cliente', 'left');
+        $column_cliente_id = new TDataGridColumn('cliente->nome_fantasia', 'Fornecedor', 'left');
         $column_tipo_contrato_id = new TDataGridColumn('tipo_contrato->nome', 'Tipo Contrato', 'left');
         $column_dt_inicio = new TDataGridColumn('dt_inicio', 'Dt Inicio', 'left');
         $column_dt_fim = new TDataGridColumn('dt_fim', 'Dt Fim', 'left');

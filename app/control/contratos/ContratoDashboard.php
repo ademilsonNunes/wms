@@ -76,7 +76,7 @@ class ContratoDashboard extends TPage
             
             $table1 = TTable::create( [ 'class' => 'table table-striped table-hover', 'style' => 'border-collapse:collapse' ] );
             $table1->addSection('thead');
-            $table1->addRowSet('Cliente', 'Quantidade');
+            $table1->addRowSet('Fornecedor', 'Quantidade');
             
             if ($top_clientes)
             {
@@ -92,7 +92,7 @@ class ContratoDashboard extends TPage
             
             $table2 = TTable::create( [ 'class' => 'table table-striped table-hover', 'style' => 'border-collapse:collapse' ] );
             $table2->addSection('thead');
-            $table2->addRowSet('Cliente', 'Data');
+            $table2->addRowSet('Fornecedor', 'Data');
             
             if ($old_clientes)
             {
@@ -109,8 +109,8 @@ class ContratoDashboard extends TPage
             $div->add( TElement::tag('div', $indicator2, ['class' => 'col-sm-6']) );
             $div->add( TElement::tag('div', $grafico1,   ['class' => 'col-sm-6']) );
             $div->add( TElement::tag('div', $grafico2,   ['class' => 'col-sm-6']) );
-            $div->add( TElement::tag('div', TPanelGroup::pack('Ranking TOP 5 Clientes', $table1),     ['class' => 'col-sm-6']) );
-            $div->add( TElement::tag('div', TPanelGroup::pack('Raking 5 Clientes mais antigos', $table2),     ['class' => 'col-sm-6']) );
+            $div->add( TElement::tag('div', TPanelGroup::pack('Ranking TOP 5 Fornecedores', $table1),     ['class' => 'col-sm-6']) );
+            $div->add( TElement::tag('div', TPanelGroup::pack('Raking 5 Fornecedores mais antigos', $table2),     ['class' => 'col-sm-6']) );
             
             //$vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
             $vbox->add($div);

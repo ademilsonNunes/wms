@@ -18,12 +18,12 @@ class GeraContasReceberList extends TPage
         parent::__construct();
         
         $this->form = new BootstrapFormBuilder;
-        $this->form->setFormTitle('Gerar Contas a receber');
+        $this->form->setFormTitle('Gerar Contas a Pagar');
         
         $fatura_list = new TCheckList('fatura_list');
         
         $fatura_list->addColumn('id',          'Id',          'center',  '10%');
-        $fatura_list->addColumn('cliente->nome_fantasia', 'Cliente', 'left',    '50%');
+        $fatura_list->addColumn('cliente->nome_fantasia', 'Fornecedor', 'left',    '50%');
         $column_total = $fatura_list->addColumn('total',  'Valor',       'right',    '40%');
         
         $column_total->setTransformer( function($value) {

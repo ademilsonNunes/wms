@@ -71,7 +71,7 @@ class ContratoForm extends TWindow
         
         // add form fields to the form
         $this->form->addFields( [new TLabel('Id')], [$id] );
-        $this->form->addFields( [new TLabel('Cliente')], [$cliente_id] );
+        $this->form->addFields( [new TLabel('Fornecedor')], [$cliente_id] );
         $this->form->addFields( [new TLabel('Tipo Contrato')], [$tipo_contrato_id] );
         $this->form->addFields( [new TLabel('Ativo')], [$ativo] );
         $this->form->addFields( [new TLabel('Dt Inicio')], [$dt_inicio], [new TLabel('Dt Fim')], [$dt_fim] );

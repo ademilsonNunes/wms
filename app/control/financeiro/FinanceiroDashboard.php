@@ -75,7 +75,7 @@ class FinanceiroDashboard extends TPage
             
             $table1 = TTable::create( [ 'class' => 'table table-striped table-hover', 'style' => 'border-collapse:collapse' ] );
             $table1->addSection('thead');
-            $table1->addRowSet('Mês', 'Receber', 'Recebido', 'Saldo');
+            $table1->addRowSet('Mês', 'A pagar', 'Pago', 'Saldo');
             
             if ($receber_meses)
             {

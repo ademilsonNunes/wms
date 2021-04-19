@@ -23,7 +23,7 @@ class GeraFaturasList extends TPage
         $contrato_list = new TCheckList('contrato_list');
         
         $contrato_list->addColumn('id',          'Id',          'center',  '10%');
-        $contrato_list->addColumn('cliente->nome_fantasia', 'Cliente', 'left',    '50%');
+        $contrato_list->addColumn('cliente->nome_fantasia', 'Fornecedor', 'left',    '50%');
         $column_ultima_fatura = $contrato_list->addColumn('ultima_fatura', 'Última fatura', 'left',    '50%');
         $column_total = $contrato_list->addColumn('total',  'Valor',       'right',    '40%');
         

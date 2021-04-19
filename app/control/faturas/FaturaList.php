@@ -64,7 +64,7 @@ class FaturaList extends TPage
         
         // add the fields
         $this->form->addFields( [ new TLabel('Id') ], [ $id ] );
-        $this->form->addFields( [ new TLabel('Cliente') ], [ $cliente_id ] );
+        $this->form->addFields( [ new TLabel('Fornecedor') ], [ $cliente_id ] );
         $this->form->addFields( [ new TLabel('Financeiro Gerado') ], [ $financeiro_gerado ] );
         $this->form->addFields( [ new TLabel('Mes') ], [ $mes ] );
         $this->form->addFields( [ new TLabel('Ano') ], [ $ano ] );
@@ -93,7 +93,7 @@ class FaturaList extends TPage
 
         // creates the datagrid columns
         $column_id = new TDataGridColumn('id', 'Id', 'center');
-        $column_cliente_id = new TDataGridColumn('cliente->nome_fantasia', 'Cliente', 'left');
+        $column_cliente_id = new TDataGridColumn('cliente->nome_fantasia', 'Fornecedor', 'left');
         $column_dt_fatura = new TDataGridColumn('dt_fatura', 'Dt Fatura', 'center');
         $column_total = new TDataGridColumn('total', 'Total', 'right');
         $column_financeiro_gerado = new TDataGridColumn('financeiro_gerado', 'Financeiro', 'center');
