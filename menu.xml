@@ -6,6 +6,10 @@
       <menuitem label="Consultas">
         <icon>fas:search fa-fw</icon>
         <menu>
+          <menuitem label="Usuários RF">
+            <action>FormUserList</action>
+            <icon>fas:user fa-fw</icon>
+          </menuitem>
           <menuitem label="Consulta Palete">
             <action>ConsultaPalete</action>
             <icon>far:circle fa-fw</icon>
