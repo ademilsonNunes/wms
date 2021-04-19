@@ -37,25 +37,29 @@ class FormUserList extends TPage
         $indicator1 = new THtmlRenderer('app/resources/info-box.html');
         $indicator1->enableSection('main', ['title' => ('Usuários conectados'), 'icon' => 'users',  'background' => 'blue', 'value' => (float)$this->coutUserAtivo()]);
 
+        $reflash = new THtmlRenderer('app/resources/reflash.html');
+
         // creates one datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
         $this->datagrid->style = 'width:100%';
         
         // create the datagrid columns  
-        $ip          = new TDataGridColumn('COLETORID',   'IP',         'center', '10%');
-        $func        = new TDataGridColumn('FUNCIONARIO', 'Usuário',    'left',   '30%');
-        $funcao      = new TDataGridColumn('FUNCAO',      'Função',     'left',   '30%');
-        $funcao1     = new TDataGridColumn('FUNCAO1',     'Função1',    'left',   '30%');
+        $ip          = new TDataGridColumn('COLETORID',   'IP',          'center', '10%');
+        $func        = new TDataGridColumn('FUNCIONARIO', 'Usuário',     'left',   '10%');
+        $colab       = new TDataGridColumn('NOME',        'Colaborador', 'left',   '30%');
+        $funcao      = new TDataGridColumn('FUNCAO',      'Função',      'left',   '30%');
+        $funcao1     = new TDataGridColumn('FUNCAO1',     'Função1',     'left',   '30%');
     //    $funcao2     = new TDataGridColumn('FUNCAO2',     'Função2',    'left',   '30%');
-        $turno       = new TDataGridColumn('TURNO',       'Turno',      'left',   '30%');
-        $tarefa      = new TDataGridColumn('TAREFA',      'Tarefa',     'left',   '30%');
-        $referencia  = new TDataGridColumn('REFERENCIA',  'Referência', 'left',   '30%');
-        $end         = new TDataGridColumn('ENDERECO',    'Endereço',   'left',   '30%');
-        $destino     = new TDataGridColumn('DESTINO',     'Destino',    'left',   '30%');
+        $turno       = new TDataGridColumn('TURNO',       'Turno',       'left',   '30%');
+        $tarefa      = new TDataGridColumn('TAREFA',      'Tarefa',      'left',   '30%');
+        $referencia  = new TDataGridColumn('REFERENCIA',  'Referência',  'left',   '30%');
+        $end         = new TDataGridColumn('ENDERECO',    'Endereço',    'left',   '30%');
+        $destino     = new TDataGridColumn('DESTINO',     'Destino',     'left',   '30%');
         
         // add the columns to the datagrid, with actions on column titles, passing parameters
         $this->datagrid->addColumn($ip);
         $this->datagrid->addColumn($func);
+        $this->datagrid->addColumn($colab);
         $this->datagrid->addColumn($funcao);
         $this->datagrid->addColumn($funcao1);
   //      $this->datagrid->addColumn($funcao2);
@@ -75,13 +79,13 @@ class FormUserList extends TPage
 
         $panel = new TPanelGroup('Usuarios conectados via RF');
         $panel->add($indicator1);        
+        $panel->add($reflash);
         $panel->add($this->datagrid);
         $panel->addFooter($this->pageNavigation);
         
         $panel->addHeaderActionLink( 'PDF', new TAction([$this, 'exportAsPDF'], ['register_state' => 'false']), 'far:file-pdf red' );
         $panel->addHeaderActionLink( 'CSV', new TAction([$this, 'exportAsCSV'], ['register_state' => 'false']), 'fa:table blue' );
-
-        
+            
         // wrap the page content using vertical box
         $vbox = new TVBox;
         $vbox->style = 'width: 100%';
@@ -125,7 +129,7 @@ class FormUserList extends TPage
               $item = new StdClass;
               $item->COLETORID   = $row['COLETORID'];
               $item->FUNCIONARIO = $row['FUNCIONARIO']; 
-              $item->DESCRICAO   = $row['NOME'];
+              $item->NOME        = $row['NOME'];
               $item->FUNCAO      = $row['FUNCAO'];
               $item->FUNCAO1     = $row['FUNCAO1'];
               $item->FUNCAO2     = $row['FUNCAO2'];

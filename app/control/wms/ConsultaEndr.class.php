@@ -96,6 +96,8 @@ class ConsultaEndr extends TPage
              $qtde      = 0;
              $uso       = 'N';
              $idPall    = '';
+             $res       = '';
+             $prod      = '';
 
              foreach ($result as $row) // exibe os resultados
              {  
@@ -115,13 +117,17 @@ class ConsultaEndr extends TPage
 
              TTransaction::close(); // fecha a transação.
 
-             if($uso =='S')
+             if($uso =='S' && $end <> '')
              {
                   $res = '<b>Endereço: </b>'.  $end  . '<br/>' . '<b>Produto: </b>' .$prod . '<br/>' .'<b>Descrição: </b> ' .  $desc . '<br/>' . '<b>Qtde: </b> ' . $qtde_pick . '<br/>';                 
              }
-             else
+             elseif($prod <> '')
              {
                  $res = '<b>Endereço: </b>'. $end . '<br/>' . '<b>Produto: </b>' .  $prod . '<br/>' .'<b>Descrição: </b> ' .  $desc . '<br/>' . '<b>Qtde: </b> ' . $qtde . '<br/>' . '<b>Lote: </b> ' . $lote . '<br/>' . '<b>Data Ent.: </b> ' .  $dtEnt . '<br/>' . '<b>Data Val.: </b> ' .  $dtVal . '<br/>' . '<b>Cxs_Pallet: </b> ' . $cxPall . '<br/>' . '<b>Pallet:</b> ' . $idPall ;   
+             }
+             else 
+             {
+                $res = 'Endereço Vazio';
              }
 
              new TMessage('info',  $res);    
