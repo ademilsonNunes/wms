@@ -215,11 +215,6 @@ class FormUserList extends TPage
         }
     }
 
-
-    /*
-     *     
-    */
-    
     /**
      * Export datagrid as CSV
      */

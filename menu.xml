@@ -27,6 +27,10 @@
             <action>ConsultaEndBlock</action>
             <icon>fas:crop fa-fw</icon>
           </menuitem>
+          <menuitem label="EGeral Dashboard ">
+            <action>EstoqueAtualDashboard</action>
+            <icon>fas:balance-scale fa-fw</icon>
+          </menuitem>
         </menu>
       </menuitem>
     </menu>
