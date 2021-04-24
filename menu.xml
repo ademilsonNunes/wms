@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
+  <menuitem label="Comercial">
+    <icon>fas:archive fa-fw</icon>
+    <menu>
+      <menuitem label="Dashboard">
+        <icon>fas:chart-pie fa-fw</icon>
+        <menu>
+          <menuitem label="Carteira">
+            <action>PedidosDeVendaDashBoard</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
+        </menu>
+      </menuitem>
+    </menu>
+  </menuitem>
   <menuitem label="WMS">
     <icon>fas:building fa-fw</icon>
     <menu>
