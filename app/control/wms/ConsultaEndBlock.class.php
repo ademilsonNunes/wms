@@ -128,8 +128,7 @@ class ConsultaEndBlock extends TPage
         $query = "SELECT COUNT((TE.PREDIO + '.' + CAST( TE.RUA AS VARCHAR) + '.' + CAST (TE.BLOCO AS VARCHAR) + '.' + CAST(TE.APTO AS VARCHAR))) AS 'TOTAL'
                   FROM TAB_END TE
                   WHERE BLOQUEADO_SAIDA = -1
-                  AND STATUS = 4
-";     
+                  AND STATUS = 4";     
 
         try
         {

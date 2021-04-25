@@ -47,6 +47,15 @@
           </menuitem>
         </menu>
       </menuitem>
+      <menuitem label="Dashboard">
+        <icon>far:chart-bar fa-fw</icon>
+        <menu>
+          <menuitem label="Estoque Geral">
+            <action>DashboardEstoqueGeral</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
+        </menu>
+      </menuitem>
     </menu>
   </menuitem>
   <menuitem label="Pessoas">

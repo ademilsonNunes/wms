@@ -21,7 +21,7 @@ class PedidosDeVendaDashBoard extends TPage
      */
     function __construct()
     {
-        parent::__construct();
+        parent::__construct();  
        
         $frame = new TElement('iframe');
         $frame->width  = '1259';
