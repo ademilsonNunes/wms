@@ -19,7 +19,10 @@ $(function() {
     var render_bar_chart = function() {
         var data = google.visualization.arrayToDataTable( {$data|raw} );
         var options = {
+        
           title : '{$title}',
+          isStacked: true,
+          minValue: 0,
           vAxis: {title: '{$ytitle}'},
           hAxis: {title: '{$xtitle}'},
           seriesType: 'bars'
