@@ -27,7 +27,6 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
 class DashboardEstoqueGeral extends TPage
 {
     private $datagrid;
-
     /**
      * Class constructor
      * Creates the page
@@ -53,58 +52,40 @@ class DashboardEstoqueGeral extends TPage
             $this->datagrid->makeScrollable();
             
             // create the datagrid columns
-         /*    
-            $familia       = new TDataGridColumn('FAMILIA',       'Familia',      'center', '10%');
-            $marca         = new TDataGridColumn('MARCA',         'Marca',        'center', '10%');
-            $categoria     = new TDataGridColumn('CATEGORIA',     'Categoria.',   'center', '10%');
-            $subcategoria  = new TDataGridColumn('SUBCATEGORIA',  'Subcategoria', 'center', '10%');
-          */
-            $produto       = new TDataGridColumn('PRODUTO',       'Produto',      'left',   '10%');
-            $item          = new TDataGridColumn('ITEM',          'Item.',        'left',   '20%');
-            $rot           = new TDataGridColumn('ROT',           'Rot.',         'center', '5%');
-            $und           = new TDataGridColumn('UND',           'Und.',         'center', '5%');
-         //   $endRet        = new TDataGridColumn('END_RET',       'End. Ret.',    'center', '40px');
-            $endSep        = new TDataGridColumn('END_SEP',       'End. Sep.',    'center', '5%');
-            $qtdeEg        = new TDataGridColumn('QTDE_EG',       'Qtde_eg.',     'center', '5%');
-            $qtdeSep       = new TDataGridColumn('QTDE_SEP',      'Qtde_sep.',    'center', '5%'); 
-            $qtdeLb        = new TDataGridColumn('QTDE_LIB',      'Qtde_lib.',    'center', '5%');  
-            $qtdePk        = new TDataGridColumn('QTDE_PICK',     'Qtde_Pick.',   'center', '5%');          
-            $qtdeRv        = new TDataGridColumn('QTDE_REV',      'Qtde_Rev.',    'center', '5%');   
-            $qtdeRes       = new TDataGridColumn('QTDE_RES',      'Qtde_Res.',    'center', '5%');       
-            $status        = new TDataGridColumn('STATUS',        'Status',       'center', '10%');
-
+            $produto       = new TDataGridColumn('PRODUTO',         'Produto',            'left',   '10%');
+            $item          = new TDataGridColumn('ITEM',            'Item.',              'left',   '20%');
+            $rot           = new TDataGridColumn('ROT',             'Rot.',               'center', ' 5%');
+            $und           = new TDataGridColumn('UND',             'Und.',               'center', ' 5%');
+            $endSep        = new TDataGridColumn('END_SEP',         'End. Sep.',          'center', ' 5%');
+            $qtdeLb        = new TDataGridColumn('QTDE_LIB',        'Qtde Liberada',      'center', ' 5%');  
+            $qtdePk        = new TDataGridColumn('QTDE_PICK',       'Picking',            'center', ' 5%');          
+            $qtdeRv        = new TDataGridColumn('QTDE_REV',        'Revisão',            'center', ' 5%');   
+            $qtdeRes       = new TDataGridColumn('QTDE_RES',        'Ressuprimento',      'center', ' 5%');    
+            $qtde_egeral   = new TDataGridColumn('QTDE_EGERAL',     'Qtde Geral Disp.',   'center', ' 5%');
+            $tranSaida     = new TDataGridColumn('QTDE_TRAN_SAIDA', 'Transito de Saida',  'center', ' 5%');    
+            $estGeral      = new TDataGridColumn('ESTGERAL',        'Total Geral',        'center', ' 5%');    
+            $status        = new TDataGridColumn('STATUS',          'Status',             'center', '10%');
             
             // add the columns to the datagrid, with actions on column titles, passing parameters
-           /*
-            $this->datagrid->addColumn($familia);
-            $this->datagrid->addColumn($marca);
-            $this->datagrid->addColumn($categoria);
-            $this->datagrid->addColumn($subcategoria);
-            */
             $this->datagrid->addColumn($produto);
             $this->datagrid->addColumn($item);
             $this->datagrid->addColumn($rot);
             $this->datagrid->addColumn($und);
-          //  $this->datagrid->addColumn($endRet);  
             $this->datagrid->addColumn($endSep);
-            $this->datagrid->addColumn($qtdeEg);
-            $this->datagrid->addColumn($qtdeSep);
             $this->datagrid->addColumn($qtdeLb);
             $this->datagrid->addColumn($qtdePk);
             $this->datagrid->addColumn($qtdeRv);
             $this->datagrid->addColumn($qtdeRes);
+            $this->datagrid->addColumn($qtde_egeral);
+            $this->datagrid->addColumn($tranSaida);
+            $this->datagrid->addColumn($estGeral);
             $this->datagrid->addColumn($status);
             
             // creates the datagrid model
             $this->datagrid->createModel();
-            
-            // creates the page navigation
-          //  $this->pageNavigation = new TPageNavigation;
-           // $this->pageNavigation->setAction(new TAction([$this, 'onReload']));
 
             $panel = new TPanelGroup('Estoque Geral');        
             $panel->add($this->datagrid);
-           // $panel->addFooter($this->pageNavigation);
             
             $container = new TVBox;
             $container->style = 'width: 100%';
@@ -179,6 +160,14 @@ class DashboardEstoqueGeral extends TPage
              $qtde_rev  = 0;
              $qtde_res  = 0;
              $qtde_pick = 0;
+             $qtde_tran_saida = 0;
+
+              //qtde liberada status = 1
+              if($row['STATUS_COD'] == "4")
+              {
+                 $qtde_tran_saida  = (float)$row['QTDE_EG']; 
+              }
+
               //qtde liberada status = 1
               if($row['STATUS_COD'] == "1")
               {
@@ -198,38 +187,49 @@ class DashboardEstoqueGeral extends TPage
               }
 
               //qtde picking
-              //SOMA(SE([@[APTO_SEP]]=1;SE(OU([@STATUS]="1";"5");[@[QTDE_SEP]]))+SOMA(SE([@[APTO_SEP]]=1;SE(OU([@STATUS]="5");[@[QTDE_EG]]))))+[@[QTDE_RESSUPRIMENTO]]-[@[QTDE_REV]]
-              if($row['APTO_SEP'] == 1 && $row['STATUS_COD'] == '5')
+              if($row['APTO_SEP'] == 1 && $row['STATUS_COD'] == '1')
               {
                   $qtde_pick += $row['QTDE_SEP'];
-
-                 if($row['STATUS_COD'] == "1")
-                 {
-                    $qtde_pick += $row['QTDE_SEP'];
-                 }
               }
-              $qtde_pick += $qtde_res - $qtde_rev;
+
+              if($row['APTO_SEP'] == 1 && $row['STATUS_COD'] == '5')
+              {
+                 $qtde_pick += $row['QTDE_EG'];
+              }
+
+              $qtde_pick += $qtde_res;
+              $qtde_pick -= $qtde_rev; 
+              
+              //Estoque Geral
+              $qtde_egeral = $qtde_lib + $qtde_res;
+              $estoque_geral = $qtde_egeral + $qtde_pick;
+              $this->totalPicking += $qtde_pick;
 
               $item = new StdClass;
-              $item->FAMILIA      = trim($row['FAMILIA']);
-              $item->MARCA        = trim($row['MARCA']);
-              $item->CATEGORIA    = trim($row['CATEGORIA']);
-              $item->SUBCATEGORIA = trim($row['SUBCATEGORIA']);
-              $item->PRODUTO      = trim($row['PRODUTO']);
-              $item->ITEM         = trim($row['ITEM']);
-              $item->ROT          = trim($row['ROT']); 
-              $item->UND          = trim($row['UND']);
-              $item->END_RET      = trim($row['END_RET']);
-              $item->END_SEP      = trim($row['END_SEP']);
-              $item->QTDE_EG      = $row['QTDE_EG'];
-              $item->QTDE_SEP     = $row['QTDE_SEP'];
-              $item->QTDE_LIB     = $qtde_lib;
-              $item->QTDE_REV     = $qtde_rev;
-              $item->QTDE_RES     = $qtde_res;
-              $item->QTDE_PICK    = $qtde_pick;
-              $item->STATUS_COD   = $row['STATUS_COD'];
-              $item->STATUS       = $row['STATUS'];
+              $item->FAMILIA          = trim($row['FAMILIA']);
+              $item->MARCA            = trim($row['MARCA']);
+              $item->CATEGORIA        = trim($row['CATEGORIA']);
+              $item->SUBCATEGORIA     = trim($row['SUBCATEGORIA']);
+              $item->PRODUTO          = trim($row['PRODUTO']);
+              $item->ITEM             = trim($row['ITEM']);
+              $item->ROT              = trim($row['ROT']); 
+              $item->UND              = trim($row['UND']);
+              $item->END_RET          = trim($row['END_RET']);
+              $item->END_SEP          = trim($row['END_SEP']);
+              $item->QTDE_EG          = $row['QTDE_EG'];
+              $item->QTDE_SEP         = $row['QTDE_SEP'];
+              $item->QTDE_LIB         = $qtde_lib;
+              $item->QTDE_REV         = $qtde_rev;
+              $item->QTDE_RES         = $qtde_res;
+              $item->QTDE_TRAN_SAIDA  = $qtde_tran_saida;
+              $item->QTDE_PICK        = $qtde_pick;
+              $item->QTDE_EGERAL      = $qtde_egeral;
+              $item->ESTGERAL         = $estoque_geral;
+              $item->STATUS_COD       = $row['STATUS_COD'];
+              $item->STATUS           = $row['STATUS'];
               $this->datagrid->addItem($item);
+
+
            }
         
          TTransaction::close(); // fecha a transação.
