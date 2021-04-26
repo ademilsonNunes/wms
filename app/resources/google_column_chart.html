@@ -20,15 +20,15 @@ $(function() {
         var data = google.visualization.arrayToDataTable( {$data|raw} );
         var options = {
           title : '{$title}',
-          vAxis: {title: '{$ytitle}'},
-          hAxis: {title: '{$xtitle}'},
-          seriesType: 'bars',          
+          vAxis: {title: '{$ytitle}'},          
           minValue: 0,
+          hAxis: {title: '{$xtitle}'},
+          minValue: 0,
+          seriesType: 'bars',          
           hAxis : { 
               textStyle : {
-                  fontSize: 10
-              }
-      
+                  fontSize: 9
+              }      
            } 
         };
         
