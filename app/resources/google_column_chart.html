@@ -22,7 +22,14 @@ $(function() {
           title : '{$title}',
           vAxis: {title: '{$ytitle}'},
           hAxis: {title: '{$xtitle}'},
-          seriesType: 'bars'
+          seriesType: 'bars',          
+          minValue: 0,
+          hAxis : { 
+              textStyle : {
+                  fontSize: 10
+              }
+      
+           } 
         };
         
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_bar_div_{$uniqid}'));

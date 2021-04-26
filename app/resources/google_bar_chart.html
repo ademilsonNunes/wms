@@ -24,6 +24,12 @@ $(function() {
           isStacked: true,
           minValue: 0,
           vAxis: {title: '{$ytitle}'},
+          bars: 'horizontal',
+          axes: {
+            y: {
+              0: {side: 'right'}
+            }
+          },
           hAxis: {title: '{$xtitle}'},
           seriesType: 'bars'
         };

@@ -60,7 +60,7 @@ class DashboardEstoqueGeral extends TPage
             $indicadorEstoqueGer = new THtmlRenderer('app/resources/info-box.html');  
             $indicadorTranSaida  = new THtmlRenderer('app/resources/info-box.html');
 
-            $produtos = new THtmlRenderer('app/resources/google_bar_chart.html');
+            $produtos = new THtmlRenderer('app/resources/google_column_chart.html');
 
             $totalPicking = new TSession();            
             $totalLib     = new TSession(); 
@@ -82,7 +82,7 @@ class DashboardEstoqueGeral extends TPage
             $this->totalProd = $this->getEstGeralChart();
             $data = array();
             $data[] = [ 'Item', 'Qtde' ];
-
+   
             foreach ($this->totalProd as $row) 
             {
               $data[] = [$row['ITEM'], $row['QTDE']];
@@ -444,50 +444,8 @@ class DashboardEstoqueGeral extends TPage
               
                 // Estoque geral total (menos transito de saida)    
                 $estoque_geral = $qtde_egeral + $qtde_pick;
-
-                //Totalizadores
-                $this->totalPicking  += $qtde_pick;
-                $this->totalLiberado += $qtde_lib;
-                $this->totalRevisao  += $qtde_rev;
-                $this->totalTransitoSaida += $qtde_tran_saida;
-
-                $totalPicking = new TSession();
-                $totalPicking->setValue('total_picking', $this->totalPicking);
-              
-                $totalLib = new TSession();
-                $totalLib->setValue('total_lib', $this->totalLiberado);
-
-                $totalRev = new TSession();
-                $totalRev->setValue('total_rev', $this->totalRevisao);
-
-                $totalTranSaida = new TSession();
-                $totalTranSaida->setValue('total_tran', $this->totalTransitoSaida);
-                
-                $totalProd[$i] = array('PRODUTO' => $row['PRODUTO'], 'ITEM' => $row['ITEM'], 'QTDE' => $estoque_geral);
-
-                $item = new StdClass;
-                $item->FAMILIA          = trim($row['FAMILIA']);
-                $item->MARCA            = trim($row['MARCA']);
-                $item->CATEGORIA        = trim($row['CATEGORIA']);
-                $item->SUBCATEGORIA     = trim($row['SUBCATEGORIA']);
-                $item->PRODUTO          = trim($row['PRODUTO']);
-                $item->ITEM             = trim($row['ITEM']);
-                $item->ROT              = trim($row['ROT']); 
-                $item->UND              = trim($row['UND']);
-                $item->END_RET          = trim($row['END_RET']);
-                $item->END_SEP          = trim($row['END_SEP']);
-                $item->QTDE_EG          = $row['QTDE_EG'];
-                $item->QTDE_SEP         = $row['QTDE_SEP'];
-                $item->QTDE_LIB         = $qtde_lib;
-                $item->QTDE_REV         = $qtde_rev;
-                $item->QTDE_RES         = $qtde_res;
-                $item->QTDE_TRAN_SAIDA  = $qtde_tran_saida;
-                $item->QTDE_PICK        = $qtde_pick;
-                $item->QTDE_EGERAL      = $qtde_egeral;
-                $item->ESTGERAL         = $estoque_geral;
-                $item->STATUS_COD       = $row['STATUS_COD'];
-                $item->STATUS           = $row['STATUS'];              
-                $i++;                 
+                $totalProd[$i] = array('PRODUTO' => $row['PRODUTO'], 'ITEM' => $row['ITEM'], 'QTDE' => $estoque_geral);     
+                $i++;    
             }        
             TTransaction::close(); // fecha a transação.
         }
