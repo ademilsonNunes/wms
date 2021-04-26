@@ -50,6 +50,10 @@
             <action>DashboardEstoqueGeral</action>
             <icon>far:circle fa-fw</icon>
           </menuitem>
+          <menuitem label="Mov. Estoque">
+            <action>MovEstoqueDashboard</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
         </menu>
       </menuitem>
     </menu>
