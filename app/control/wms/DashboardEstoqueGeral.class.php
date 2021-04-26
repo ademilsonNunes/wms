@@ -97,21 +97,14 @@ class DashboardEstoqueGeral extends TPage
               $data1[] = [$row['ROT'], $row['QTDE']];
             }
   
-            /*
-            echo '<pre>';
-            print_r($this->totalProdRet);
-            echo '<pre>';
-            */
-            
             $indicadorRot->enableSection('main', ['data'   => json_encode($data1),
             'width'  => '100%',
             'height' => '500px',
-            'title'  => 'Estoque Geral por Rotatividade',
+            'title'  => 'Estoque Vs Rotatividade',
             'ytitle' => 'Caixas', 
             'xtitle' => 'Classificação',
             'uniqid' => uniqid()]); 
              
-
             
             $produtos->enableSection('main', ['data'   => json_encode($data),
                                               'width'  => '100%',
@@ -533,6 +526,9 @@ class DashboardEstoqueGeral extends TPage
              // realiza a consulta
              $result = $conn->query($query);
              $i = 0;    
+             $total_a = 0;
+             $total_b = 0;
+             $total_c = 0;
              foreach ($result as $row) // exibe os resultados
              { 
                  $qtde_lib  = 0;
@@ -540,7 +536,7 @@ class DashboardEstoqueGeral extends TPage
                  $qtde_res  = 0;
                  $qtde_pick = 0;
                  $qtde_tran_saida = 0;
- 
+                 
                  //qtde em transito de saida status = 4
                  if($row['STATUS_COD'] == "4")
                  {
@@ -580,14 +576,28 @@ class DashboardEstoqueGeral extends TPage
                  $qtde_pick -= $qtde_rev; 
                
                  //Estoque Total liberado 
-                 $qtde_egeral = $qtde_lib + $qtde_res;
-               
+                 $qtde_egeral = $qtde_lib + $qtde_res;            
                  // Estoque geral total (menos transito de saida)    
                  $estoque_geral = $qtde_egeral + $qtde_pick;                 
-                 $totalProdRot[$i] = array('ROT' => $row['ROT'], 'QTDE' => $estoque_geral);     
-                 $i++;    
+                  
+                 /* Totalizadir rotatividade */ 
+                 if ($row['ROT']   == 'A') 
+                 {
+                   $total_a += $estoque_geral;
+                 }
+                 elseif($row['ROT'] == 'B') 
+                 {
+                   $total_b += $estoque_geral;
+                 }
+                 elseif($row['ROT'] == 'C') 
+                 {
+                   $total_c += $estoque_geral;
+                 }                
              }        
              TTransaction::close(); // fecha a transação.
+             $totalProdRot[0] = array('ROT' => 'Curva A', 'QTDE' => $total_a);    
+             $totalProdRot[1] = array('ROT' => 'Curva B', 'QTDE' => $total_b);
+             $totalProdRot[2] = array('ROT' => 'Curva C', 'QTDE' => $total_c);
          }
          catch (Exception $e)
          {
@@ -700,7 +710,7 @@ class DashboardEstoqueGeral extends TPage
     function show()
     {
         $this->onReload();
-              
+        $this->getEstGeral();      
         parent::show();
     }
    
