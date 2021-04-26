@@ -538,7 +538,7 @@ class DashboardEstoqueGeral extends TPage
             
             if ($data)
             {
-                $file    = 'app/output/end_block.csv';
+                $file    = 'app/output/estoque_atual.csv';
                 $handler = fopen($file, 'w');
                 foreach ($data as $row)
                 {
