@@ -14,6 +14,20 @@
       </menuitem>
     </menu>
   </menuitem>
+  <menuitem label="Produção">
+    <icon>fas:clipboard-list fa-fw</icon>
+    <menu>
+      <menuitem label="Dashboard">
+        <icon>far:chart-bar fa-fw</icon>
+        <menu>
+          <menuitem label="Produção">
+            <action>ProducaoSobelDashBoard</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
+        </menu>
+      </menuitem>
+    </menu>
+  </menuitem>
   <menuitem label="WMS">
     <icon>fas:building fa-fw</icon>
     <menu>

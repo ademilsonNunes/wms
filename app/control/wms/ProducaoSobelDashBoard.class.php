@@ -5,16 +5,16 @@ use Adianti\Widget\Base\TElement;
 use Adianti\Widget\Container\TVBox;
 
 /**
- * MovEstoqueDashboard
+ * ProducaoSobelDashBoard
  *
  * @version    1.0
- * @package    MovEstoqueDashboard
+ * @package    ProducaoSobelDashboard
  * @subpackage wms
  * @author     Ademilson NUnes
  * @copyright  Copyright (c) 2021 Sobel Suprema Insdustria de produtos de limpeza LTDA. (http://www.sobelsuprema.com.br)
  * @license    http://www.adianti.com.br/framework-license
  */
-class MovEstoqueDashboard extends TPage
+class ProducaoSobelDashBoard extends TPage
 { 
     /**
      * Page constructor
@@ -26,7 +26,7 @@ class MovEstoqueDashboard extends TPage
         $frame = new TElement('iframe');
         $frame->width  = '1259';
         $frame->height = '1020';
-        $frame->src = 'https://app.powerbi.com/view?r=eyJrIjoiZDExZGUzNDItYmRjZC00MDRlLThjYjYtYjUzMmRiMzc3ZTUxIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9';
+        $frame->src = 'https://app.powerbi.com/view?r=eyJrIjoiZjQwOWZmYzUtMjU5ZC00NjhkLWJiYmUtZDcwNzdiMTBjYjFmIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9';
         $frame->frameborder = '0';
         $frame->allowFullScreen = 'true';
 
