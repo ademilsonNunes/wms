@@ -28,6 +28,20 @@
       </menuitem>
     </menu>
   </menuitem>
+  <menuitem label="Compras">
+    <icon>fas:boxes fa-fw</icon>
+    <menu>
+      <menuitem label="Dashboard">
+        <icon>far:chart-bar fa-fw</icon>
+        <menu>
+          <menuitem label="Compras">
+            <action>ComprasDashBoard</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
+        </menu>
+      </menuitem>
+    </menu>
+  </menuitem>
   <menuitem label="WMS">
     <icon>fas:building fa-fw</icon>
     <menu>
@@ -44,6 +58,10 @@
           </menuitem>
           <menuitem label="Consulta End.">
             <action>ConsultaEndr</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
+          <menuitem label="Hist. Pallet">
+            <action>ConsultaPaleteHist</action>
             <icon>far:circle fa-fw</icon>
           </menuitem>
         </menu>
