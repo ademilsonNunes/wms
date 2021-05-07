@@ -3,6 +3,15 @@
   <menuitem label="Comercial">
     <icon>fas:archive fa-fw</icon>
     <menu>
+      <menuitem label="Consultas">
+        <icon>fas:cart-arrow-down fa-fw</icon>
+        <menu>
+          <menuitem label="Fat. Online">
+            <action>DashboardFatOnline</action>
+            <icon>fas:circle fa-fw</icon>
+          </menuitem>
+        </menu>
+      </menuitem>
       <menuitem label="Dashboard">
         <icon>fas:chart-pie fa-fw</icon>
         <menu>
