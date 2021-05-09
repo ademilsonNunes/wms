@@ -19,6 +19,10 @@
             <action>PedidosDeVendaDashBoard</action>
             <icon>far:circle fa-fw</icon>
           </menuitem>
+          <menuitem label="Faturamento ">
+            <action>FaturamentoDevDashBoard</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
         </menu>
       </menuitem>
     </menu>
