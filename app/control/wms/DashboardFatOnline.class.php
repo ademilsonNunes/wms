@@ -98,7 +98,7 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
                                           'totalcaixasprojecao' => $totalcaixasprojecao,
                                           'totalvalorprojecao'  => 'R$ ' . number_format($totalvalorprojecao, 2, ',', '.'),
                                           'mediaprojecao'       => 'R$ ' . number_format($mediaprojecao, 2, ',', '.'),
-                                          'totalcaixascarteira' =>  number_format($totalcaixascarteira, 2, ',', '.'),
+                                          'totalcaixascarteira' =>  number_format($totalcaixascarteira, 0, ',', '.'),
                                           'totalvalorcarteira'  => 'R$ ' . number_format($totalvalorcarteira, 2, ',', '.'),
                                           'mediocarteira'       => 'R$ ' . number_format($mediocarteira, 2, ',', '.')                                 
                                          ]);
