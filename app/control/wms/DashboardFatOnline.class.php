@@ -31,6 +31,13 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
  {
     function __construct()
     {
+        $css = new TELement('link');
+        $css->href  = 'app/templates/{template}/css/main.css';
+        $css->rel   = 'stylesheet';
+        $css->type  = 'text/css';
+        $css->media = 'screen'; 
+
+       // <link href="app/templates/{template}/css/main.css" rel="stylesheet" type="text/css" media="screen">
         parent::__construct();
 
         try 
@@ -40,7 +47,8 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
             $fatDia    = $this->getFat();
             $fatMes    = $this->getFatAc();
             $diaUtil   = $this->getDiaUtil(); 
-            $diasUteis = $this->getDiasUteis();                        
+            $diasUteis = $this->getDiasUteis();      
+            $carteira  = $this->getCarteira();                  
 
             $totalCaixas = (float)$fatDia->QTDE;
             $totalCaixas = number_format($totalCaixas,0,',', '.');
@@ -62,19 +70,37 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
 
             $totalCaixasMediaDia = round(($totalCaixasAc / $diaUtil),3);     
             $totalmediofat = ( (float)$fatMes->LIQ / $diaUtil );        
+            
+            //Média mês
+            $mediomes = ($totalmediofat / $totalCaixasMediaDia) / 1000  ;      
+            
+            //Projeção
+            $totalcaixasprojecao = ($totalCaixasMediaDia * $diasUteis);
+            $totalvalorprojecao  = ($totalmediofat * $diasUteis);
+            $mediaprojecao      = ( $totalvalorprojecao / $totalcaixasprojecao) / 1000;
 
-            $mediomes =  $totalmediofat / $totalCaixasMediaDia ;      
-          
-            $html->enableSection('main', ['totalcaixas'    => $totalCaixas, 
-                                          'totalfat'       => $totalFat,
-                                          'mediofat'       => $medioFat,
-                                          'totalcaixasac'  => $totalCaixasAc, 
-                                          'totalfatac'     => $totalFatAc,
-                                          'mediofatac'     => $medioFatAc,
-                                          'diautil'        => $diaUtil,
-                                          'mediacaixasdia' => $totalCaixasMediaDia,
-                                          'totalmediofat'  => 'R$ ' . number_format($totalmediofat, 2, ',', '.'),
-                                          'mediomes'       => $mediomes
+            //Carteira
+            $totalcaixascarteira = (float)$carteira->QTDE;
+            $totalvalorcarteira  = (float)$carteira->LIQ;
+            $mediocarteira       = (float)$carteira->PRECO_MEDIO;
+ 
+            $html->enableSection('main', ['totalcaixas'         => $totalCaixas, 
+                                          'totalfat'            => $totalFat,
+                                          'mediofat'            => $medioFat,
+                                          'totalcaixasac'       => $totalCaixasAc, 
+                                          'totalfatac'          => $totalFatAc,
+                                          'mediofatac'          => $medioFatAc,
+                                          'diautil'             => $diaUtil,
+                                          'mediacaixasdia'      => $totalCaixasMediaDia,
+                                          'totalmediofat'       => 'R$ ' . number_format($totalmediofat, 2, ',', '.'),
+                                          'mediomes'            => 'R$ ' . number_format($mediomes, 2, ',', '.'),
+                                          'diasuteis'           => $diasUteis,
+                                          'totalcaixasprojecao' => $totalcaixasprojecao,
+                                          'totalvalorprojecao'  => 'R$ ' . number_format($totalvalorprojecao, 2, ',', '.'),
+                                          'mediaprojecao'       => 'R$ ' . number_format($mediaprojecao, 2, ',', '.'),
+                                          'totalcaixascarteira' =>  number_format($totalcaixascarteira, 2, ',', '.'),
+                                          'totalvalorcarteira'  => 'R$ ' . number_format($totalvalorcarteira, 2, ',', '.'),
+                                          'mediocarteira'       => 'R$ ' . number_format($mediocarteira, 2, ',', '.')                                 
                                          ]);
 
             $container = new TVBox;
@@ -122,6 +148,37 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
             new TMessage('error', $e->getMessage());
         }
     }
+
+     /**
+     * getCarteira()
+     */
+     function getCarteira()
+     {
+         $query = "EXEC TCARTEIRA ";
+ 
+         try 
+         {
+             TTransaction::open('bisobel');
+             $conn = TTransaction::get();
+             $result = $conn->query($query);
+             
+             $cart = new StdClass;
+             foreach ($result as $res) 
+             {
+                  $cart->QTDE         = $res['QTDE'];
+                  $cart->LIQ          = $res['LIQ'];
+                  $cart->PRECO_MEDIO  = $res['PREÇO.MEDIO'];
+             }
+ 
+             return $cart;
+             
+             TTransaction::close();
+         } catch (Exception $e) 
+         {
+             new TMessage('error', $e->getMessage());
+         }
+     }
+ 
 
      /**
      * getFatAc()

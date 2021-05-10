@@ -18,30 +18,7 @@ class WelcomeView extends TPage
     {
         parent::__construct();
         
-        /*
-        $html1 = new THtmlRenderer('app/resources/system_welcome_en.html');
-        $html2 = new THtmlRenderer('app/resources/system_welcome_pt.html');
-        $html3 = new THtmlRenderer('app/resources/system_welcome_es.html');
-
-        // replace the main section variables
-        $html1->enableSection('main', array());
-        $html2->enableSection('main', array());
-        $html3->enableSection('main', array());
-        
-        $panel1 = new TPanelGroup('Welcome!');
-        $panel1->add($html1);
-        
-        $panel2 = new TPanelGroup('Bem-vindo!');
-        $panel2->add($html2);
-		
-        $panel3 = new TPanelGroup('Bienvenido!');
-        $panel3->add($html3);
-        
-        $vbox = TVBox::pack($panel1, $panel2, $panel3);
-        $vbox->style = 'display:block; width: 100%';
-        
-        // add the template to the page
-        parent::add( $vbox );
-        */
+        echo "<p align='center'><img src='app/templates/theme3/img/LOGO_SUPREMA_2020.png' width='400px' height='400px'></p>";
+ 
     }
 }
