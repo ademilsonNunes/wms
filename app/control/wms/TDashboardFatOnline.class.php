@@ -27,7 +27,7 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
  * @copyright  Copyright (c) 2021 Sobel Suprema Insdustria de produtos de limpeza LTDA. (http://www.sobelsuprema.com.br)
  * @license    http://www.adianti.com.br/framework-license
  */
- class DashboardFatOnline extends TPage
+ class TDashboardFatOnline extends TPage
  {
     function __construct()
     {
@@ -38,13 +38,29 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
         $css->media = 'screen'; 
 
         parent::__construct();
+         // create the form
+         $this->form = new BootstrapFormBuilder;
+       //  $this->form->setFormTitle('form');
+         $this->form->generateAria(); // automatic aria-label
+
+         $dataIni = new TDate('dataini');
+         $dataFin = new TDate('datafin');
+
+         $dataIni->setMask('dd/mm/yyyy');
+         $dataFin->setMask('dd/mm/yyyy');
+
+         $this->form->addFields([new TLabel('Data inicial')], [$dataIni]);
+         $this->form->addFields([new TLabel('Data Final')], [$dataFin]);
+
+         $this->form->addAction('Buscar', new TAction(array($this, 'onSend')), 'far:check-circle green');
+     //   $this->form->addHeaderAction('Send', new TAction(array($this, 'onSend')), 'fa:rocket orange');
 
         try 
         {           
             $html      = new THtmlRenderer('app/resources/dashboard_fatonline.html');          
             
-            $fatDia    = $this->getFat();
-            $fatMes    = $this->getFatAc();
+            $fatDia    = $this->getFat( date('Ymd'), date('Ymd') );
+            $fatMes    = $this->getFatAc( date('Ym') . '01', date('Ymd') );
             $diaUtil   = $this->getDiaUtil(); 
             $diasUteis = $this->getDiasUteis();      
             $carteira  = $this->getCarteira();                  
@@ -105,7 +121,8 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
             $container = new TVBox;
             $container->style = 'width: 100%';
             $panel = new TPanelGroup('Faturamento On-line');        
-            $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+            $panel->add($this->form);
+         //   $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
             $container->add($panel);  
             $container->add($html); 
             parent::add($container);           
@@ -117,12 +134,35 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
     }
 
 
+     /**
+     * Simulates an save button
+     * Show the form content
+     */
+     public function onSend($param)
+     {
+         $data = $this->form->getData();
+         
+         // put the data back to the form
+         $this->form->setData($data);         
+     }
+
+
     /**
      * getFat()
      */
-    function getFat()
+    function getFat($dataini, $datafin)
     {
-        $query = "EXEC FATSOBEL '" . date('Ymd') . "', '"  . date('Ymd') .  "'";
+        if ($dataini == '' ) 
+        {
+            $dataini = date('Ymd');
+        }
+
+        if ($datafin == '') 
+        {
+            $datafin = date('Ymd');
+        }
+
+        $query = "EXEC FATSOBEL '" . $dataini . "', '"  .  $datafin .  "'";
 
         try 
         {
@@ -181,10 +221,19 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
      /**
      * getFatAc()
      */
-     function getFatAc()
-     {
-         $dataIni = date('Ym') . '01';
-         $query = "EXEC FATSOBEL '" . $dataIni . "', '"  . date('Ymd') .  "'";
+     function getFatAc( $dataini, $datafin )
+     {          
+          if ($dataini == '' ) 
+          {
+              $dataini = date('Ymd');
+          }
+  
+          if ($datafin == '') 
+          {
+              $datafin = date('Ymd');
+          }
+
+         $query = "EXEC FATSOBEL '" . $dataini . "', '"  . $datafin .  "'";
  
          try 
          {
