@@ -28,7 +28,8 @@ class FaturamentoDevDashBoard extends TPage
         $frame->height = '1020';
         $frame->src = 'https://www.powerbi.com/view?r=eyJrIjoiMjkzNGFhNjItZmVlOS00OGUxLWFiMDQtMmQxNGNiYjJiNzFlIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9';
         $frame->frameborder = '0';
-        $frame->allowFullScreen = 'true';
+        $frame->allowFullScreen = 'false';
+        $frame->scrolling = 'auto';
 
         // wrap the page content using vertical box
         $vbox = new TVBox;
