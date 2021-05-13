@@ -26,24 +26,25 @@ class ConsultaPaleteHist extends TPage
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
         $this->datagrid->style = 'min-width: 1900px';
         
-         $end        = new TDataGridColumn('END',         'End.',        'center', '10%');
-         $codprod    = new TDataGridColumn('CODPROD',     'Cod.',        'center', '10%');
-         $item       = new TDataGridColumn('ITEM',        'Item',        'center', '30%');
-         $qtde       = new TDataGridColumn('QTDE',        'Qtde',        'center', '10%');
-         $lote       = new TDataGridColumn('LOTE',        'Lote',        'center', '10%');
-         $ref        = new TDataGridColumn('REF',         'Ref.',        'center', '10%');
-         $dtval      = new TDataGridColumn('DTVAL',       'Dt.Val',      'center', '10%');
-         $dtmov      = new TDataGridColumn('DTMOV',       'Dt.Mov',      'center', '10%');
-         $hrmov      = new TDataGridColumn('HRMOV',       'Hr.Mov',      'center', '10%');
-         $usuario    = new TDataGridColumn('USUARIO',     'Usuário',     'center', '10%');
-         $nome       = new TDataGridColumn('NOME',        'Nome',        'center', '10%');
-         $turno      = new TDataGridColumn('TURNO',       'Turno',       'center', '10%');
-         $tipomov    = new TDataGridColumn('TIPOMOV',     'Tipo Mov.',   'center', '10%');
-         $tipodoc    = new TDataGridColumn('TIPODOC',     'Tipo Doc',    'center', '10%');
-         $dtconf     = new TDataGridColumn('DTCONF',      'Dt. Conf',    'center', '10%');
-         $motivoCanc = new TDataGridColumn('MOTIVO_CANC', 'Mot. Canc.',  'center', '10%');
-         $tipo       = new TDataGridColumn('TIPO',        'Tipo',        'center', '10%');
-         $descrTipo  = new TDataGridColumn('DESCRTIPO',   'Desc. Tipo',  'center', '20%');
+         $end        = new TDataGridColumn('END',         'End.',        'center', '5%');
+         $codprod    = new TDataGridColumn('CODPROD',     'Cod.',        'center', '5%');
+         $item       = new TDataGridColumn('ITEM',        'Item',        'center', '5%');
+         $qtde       = new TDataGridColumn('QTDE',        'Qtde',        'center', '5%');
+         $lote       = new TDataGridColumn('LOTE',        'Lote',        'center', '5%');
+         $ref        = new TDataGridColumn('REF',         'Ref.',        'center', '5%');
+         $dtval      = new TDataGridColumn('DTVAL',       'Dt.Val',      'center', '5%');
+//         $dtmov      = new TDataGridColumn('DTMOV',       'Dt.Mov',      'center', '10%');
+//         $hrmov      = new TDataGridColumn('HRMOV',       'Hr.Mov',      'center', '10%');
+//         $usuario    = new TDataGridColumn('USUARIO',     'Usuário',     'center', '5%');
+         $nome       = new TDataGridColumn('NOME',        'Nome',        'center', '5%');
+         $turno      = new TDataGridColumn('TURNO',       'Turno',       'center', '1%');
+ //        $tipomov    = new TDataGridColumn('TIPOMOV',     'Tipo Mov.',   'center', '10%');
+ //        $tipodoc    = new TDataGridColumn('TIPODOC',     'Tipo Doc',    'center', '10%');
+         $hrconf     = new TDataGridColumn('HORA_CONF',   'Dt. Conf',    'center', '10%');
+ //        $dtconf     = new TDataGridColumn('DTCONF',      'Dt. Conf',    'center', '10%');
+ //        $motivoCanc = new TDataGridColumn('MOTIVO_CANC', 'Mot. Canc.',  'center', '10%');
+ //        $tipo       = new TDataGridColumn('TIPO',        'Tipo',        'center', '10%');
+         $descrTipo  = new TDataGridColumn('DESCRTIPO',   'Desc. Tipo',  'center', '10%');
 
          $this->datagrid->addColumn($end);
          $this->datagrid->addColumn($codprod);   
@@ -52,16 +53,17 @@ class ConsultaPaleteHist extends TPage
          $this->datagrid->addColumn($lote);      
          $this->datagrid->addColumn($ref);       
          $this->datagrid->addColumn($dtval);     
-         $this->datagrid->addColumn($dtmov);     
-         $this->datagrid->addColumn($hrmov);     
-         $this->datagrid->addColumn($usuario);   
+  //       $this->datagrid->addColumn($dtmov);     
+  //       $this->datagrid->addColumn($hrmov);     
+  //       $this->datagrid->addColumn($usuario);   
          $this->datagrid->addColumn($nome);      
          $this->datagrid->addColumn($turno);     
-         $this->datagrid->addColumn($tipomov);   
-         $this->datagrid->addColumn($tipodoc);   
-         $this->datagrid->addColumn($dtconf);    
-         $this->datagrid->addColumn($motivoCanc);
-         $this->datagrid->addColumn($tipo);      
+ //        $this->datagrid->addColumn($tipomov);   
+ //        $this->datagrid->addColumn($tipodoc);   
+ //        $this->datagrid->addColumn($dtconf);    
+         $this->datagrid->addColumn($hrconf); 
+//         $this->datagrid->addColumn($motivoCanc);
+//         $this->datagrid->addColumn($tipo);      
          $this->datagrid->addColumn($descrTipo); 
 
          // creates the datagrid model
@@ -139,10 +141,11 @@ class ConsultaPaleteHist extends TPage
                          [TURNO],
                          [TIPO.MOV],
                          [TIPO.DOC],
-                         [DT.CONF],
+                         [DT_CONF],
                          [MOTIVO_CANC],
                          [TIPO],
-                         [DESCR.TIPO]
+                         [DESCR.TIPO],
+                         [HORA_CONF]
                   FROM (
                   SELECT CAST(MOV. PREDIO AS VARCHAR) + '.' + CAST(MOV.RUA AS VARCHAR) + '.'  + CAST(MOV. BLOCO AS VARCHAR) + '.' +  CAST(MOV. APTO AS VARCHAR) AS 'END', 
                   MOV.PRODUTO     AS 'CODPROD', 
@@ -159,7 +162,8 @@ class ConsultaPaleteHist extends TPage
                   TF.TURNO        AS 'TURNO',
                   MOV.TIPO_MOV    AS 'TIPO.MOV', 
                   MOV.TIPODOC     AS 'TIPO.DOC', 
-                  MOV.DATA_CONF   AS 'DT.CONF', 
+                  MOV.DATA_CONF   AS 'DT_CONF', 
+                  MOV.HORA_CONF   AS 'HORA_CONF',
                   MOV.MOTIVO_CANC AS 'MOTIVO_CANC', 
                   TMOV.TIPO       AS 'TIPO',
                   TMOV.DESCRICAO  AS 'DESCR.TIPO'
@@ -200,7 +204,8 @@ class ConsultaPaleteHist extends TPage
                 $item->TURNO       = $row['TURNO'];
                 $item->TIPOMOV     = $row['TIPO.MOV'];
                 $item->TIPODOC     = $row['TIPO.DOC'];
-                $item->DTCONF      = $row['DT.CONF'];
+                $item->DTCONF      = $row['DT_CONF']; 
+                $item->HORA_CONF   = $row['HORA_CONF'];   
                 $item->MOTIVO_CANC = $row['MOTIVO_CANC'];
                 $item->TIPO        = $row['TIPO'];  
                 $item->DESCRTIPO   = $row['DESCR.TIPO'];                 
