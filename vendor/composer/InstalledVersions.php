@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'eb46887cbfc93949d9cc249e4b816548cb8ff809',
+    'reference' => 'e49e1281cc5a757d2d24426f5ddc33a859a67fe1',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'eb46887cbfc93949d9cc249e4b816548cb8ff809',
+      'reference' => 'e49e1281cc5a757d2d24426f5ddc33a859a67fe1',
     ),
     'bacon/bacon-qr-code' => 
     array (
@@ -91,12 +91,12 @@ private static $installed = array (
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '1.8.1',
-      'version' => '1.8.1.0',
+      'pretty_version' => '1.8.2',
+      'version' => '1.8.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '35ea11d335fd638b5882ff1725228b3d35496ab1',
+      'reference' => 'dc960a912984efb74d0a90222870c72c87f10c91',
     ),
     'kint-php/kint' => 
     array (
@@ -115,7 +115,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '369b8f7143cfcc1c66edbc195fa0a4384536556a',
+      'reference' => '8dceaeaebc45f21f51b6ccec5970b884a1270719',
     ),
     'pablodalloglio/ole' => 
     array (
@@ -166,12 +166,12 @@ private static $installed = array (
     ),
     'phpmailer/phpmailer' => 
     array (
-      'pretty_version' => 'v6.4.0',
-      'version' => '6.4.0.0',
+      'pretty_version' => 'v6.4.1',
+      'version' => '6.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '050d430203105c27c30efd1dce7aa421ad882d01',
+      'reference' => '9256f12d8fb0cd0500f93b19e18c356906cbed3d',
     ),
     'phprtflite/phprtflite' => 
     array (
