@@ -10,6 +10,10 @@
             <action>DashboardFatOnline</action>
             <icon>fas:circle fa-fw</icon>
           </menuitem>
+          <menuitem label="Resumo">
+            <action>TDashboardFatOnline</action>
+            <icon>fas:circle fa-fw</icon>
+          </menuitem>
         </menu>
       </menuitem>
       <menuitem label="Dashboard">

@@ -29,6 +29,15 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
  */
  class TDashboardFatOnline extends TPage
  {
+    private $fatDia      = 0;            
+    private $fatMes      = 0;
+    private $diaUtil     = 0;
+    private $diasUteis   = 0;
+    private $carteira    = 0;
+    private $totalProd   = 0;
+    private $totalCarreg = 0;
+    private $totalDev    = 0;
+
     function __construct()
     {
         $css = new TELement('link');
@@ -38,10 +47,11 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
         $css->media = 'screen'; 
 
         parent::__construct();
+        $html      = new THtmlRenderer('app/resources/dashboard_resumo.html');    
+
          // create the form
          $this->form = new BootstrapFormBuilder;
-       //  $this->form->setFormTitle('form');
-         $this->form->generateAria(); // automatic aria-label
+         $this->form->generateAria(); 
 
          $dataIni = new TDate('dataini');
          $dataFin = new TDate('datafin');
@@ -49,88 +59,60 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
          $dataIni->setMask('dd/mm/yyyy');
          $dataFin->setMask('dd/mm/yyyy');
 
+         $dataIni->setValue(date('d/m/Y'));
+         $dataFin->setValue(date('d/m/Y'));
+
+         
          $this->form->addFields([new TLabel('Data inicial')], [$dataIni]);
          $this->form->addFields([new TLabel('Data Final')], [$dataFin]);
 
+         $this->onSend();
+
+         $totalCaixas = (float)$this->fatDia->QTDE;
+         $totalCaixas = number_format($totalCaixas,0,',', '.');
+
+         $totalFat = (float)$this->fatDia->LIQ;
+         $totalFat = 'R$ ' . number_format($totalFat,2,',', '.');
+         
+         $medioFat = (float)$this->fatDia->PRECO_MEDIO;
+         $medioFat = 'R$ ' . number_format($medioFat,2,',', '.');
+
+         //Carteira 
+         $totalcaixascarteira = (float)$this->carteira->QTDE;
+         $totalvalorcarteira  = (float)$this->carteira->LIQ;
+         $mediocarteira       = (float)$this->carteira->PRECO_MEDIO;
+         $totalProd           = (float)$this->totalProd;
+         $totalCarreg         = (float)$this->totalCarreg;
+         $totalDevCaixas      = (float)$this->totalDev->QTDE;
+         $totalDevValor       = (float)$this->totalDev->LIQ;
+
+
+         $html->enableSection('main', ['totalcaixas'         =>  $totalCaixas, 
+                                       'totalfat'            =>  $totalFat,
+                                       'mediofat'            =>  $medioFat,
+                                       'totalcaixascarteira' =>  number_format($totalcaixascarteira, 0, ',', '.'),
+                                       'totalvalorcarteira'  => 'R$ ' . number_format($totalvalorcarteira, 2, ',', '.'),
+                                       'mediocarteira'       => 'R$ ' . number_format($mediocarteira, 2, ',', '.'),
+                                       'totalproducao'       =>  number_format($totalProd, 0, ',', '.'),
+                                       'data_hora'           =>  date('d/m/Y H:i:s') ,
+                                       'total_carreg'        =>  number_format($totalCarreg , 0, ',', '.'),
+                                       'total_dev'           =>  number_format($totalDevCaixas , 0, ',', '.'),   
+                                       'total_dev_vlr'       =>  'R$ ' . number_format($totalDevValor , 2, ',', '.') 
+                                      ]);
+
+
          $this->form->addAction('Buscar', new TAction(array($this, 'onSend')), 'far:check-circle green');
-     //   $this->form->addHeaderAction('Send', new TAction(array($this, 'onSend')), 'fa:rocket orange');
-
-        try 
-        {           
-            $html      = new THtmlRenderer('app/resources/dashboard_fatonline.html');          
-            
-            $fatDia    = $this->getFat( date('Ymd'), date('Ymd') );
-            $fatMes    = $this->getFatAc( date('Ym') . '01', date('Ymd') );
-            $diaUtil   = $this->getDiaUtil(); 
-            $diasUteis = $this->getDiasUteis();      
-            $carteira  = $this->getCarteira();                  
-
-            $totalCaixas = (float)$fatDia->QTDE;
-            $totalCaixas = number_format($totalCaixas,0,',', '.');
-
-            $totalFat = (float)$fatDia->LIQ;
-            $totalFat = 'R$ ' . number_format($totalFat,2,',', '.');
-            
-            $medioFat = (float)$fatDia  ->PRECO_MEDIO;
-            $medioFat = 'R$ ' . number_format($medioFat,2,',', '.');
- 
-            $totalCaixasAc = (float)$fatMes->QTDE;
-            $totalCaixasAc = number_format($totalCaixasAc,0,',', '.');
-
-            $totalFatAc = (float)$fatMes->LIQ;
-            $totalFatAc = 'R$ ' . number_format($totalFatAc,2,',', '.');
-            
-            $medioFatAc = (float)$fatMes->PRECO_MEDIO;
-            $medioFatAc = 'R$ ' .  number_format($medioFatAc,2,',', '.');
-
-            $totalCaixasMediaDia = round(($totalCaixasAc / $diaUtil),3);     
-            $totalmediofat = ( (float)$fatMes->LIQ / $diaUtil );        
-            
-            //Média mês
-            $mediomes = ($totalmediofat / $totalCaixasMediaDia) / 1000  ;      
-            
-            //Projeção
-            $totalcaixasprojecao = ($totalCaixasMediaDia * $diasUteis);
-            $totalvalorprojecao  = ($totalmediofat * $diasUteis);
-            $mediaprojecao      = ( $totalvalorprojecao / $totalcaixasprojecao) / 1000;
-
-            //Carteira
-            $totalcaixascarteira = (float)$carteira->QTDE;
-            $totalvalorcarteira  = (float)$carteira->LIQ;
-            $mediocarteira       = (float)$carteira->PRECO_MEDIO;
- 
-            $html->enableSection('main', ['totalcaixas'         => $totalCaixas, 
-                                          'totalfat'            => $totalFat,
-                                          'mediofat'            => $medioFat,
-                                          'totalcaixasac'       => $totalCaixasAc, 
-                                          'totalfatac'          => $totalFatAc,
-                                          'mediofatac'          => $medioFatAc,
-                                          'diautil'             => $diaUtil,
-                                          'mediacaixasdia'      => $totalCaixasMediaDia,
-                                          'totalmediofat'       => 'R$ ' . number_format($totalmediofat, 2, ',', '.'),
-                                          'mediomes'            => 'R$ ' . number_format($mediomes, 2, ',', '.'),
-                                          'diasuteis'           => $diasUteis,
-                                          'totalcaixasprojecao' => $totalcaixasprojecao,
-                                          'totalvalorprojecao'  => 'R$ ' . number_format($totalvalorprojecao, 2, ',', '.'),
-                                          'mediaprojecao'       => 'R$ ' . number_format($mediaprojecao, 2, ',', '.'),
-                                          'totalcaixascarteira' =>  number_format($totalcaixascarteira, 0, ',', '.'),
-                                          'totalvalorcarteira'  => 'R$ ' . number_format($totalvalorcarteira, 2, ',', '.'),
-                                          'mediocarteira'       => 'R$ ' . number_format($mediocarteira, 2, ',', '.')                                 
-                                         ]);
+         
+       
 
             $container = new TVBox;
             $container->style = 'width: 100%';
-            $panel = new TPanelGroup('Faturamento On-line');        
+            $panel = new TPanelGroup('Resumo de Operações');        
             $panel->add($this->form);
-         //   $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+            $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
             $container->add($panel);  
             $container->add($html); 
             parent::add($container);           
-
-        } catch (Exception $e) 
-        {
-            new TMessage('error', $e->getMessage());
-        }
     }
 
 
@@ -138,12 +120,25 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
      * Simulates an save button
      * Show the form content
      */
-     public function onSend($param)
+     public function onSend()
      {
-         $data = $this->form->getData();
+         $data = $this->form->getData();         
+
+         $this->form->setData($data);  
+
+         $dataini = $data->dataini;
+         $datafin = $data->datafin;    
          
-         // put the data back to the form
-         $this->form->setData($data);         
+         //configura data no padrão ISO (utilizado pelo protheus em formato varchar)
+         $dataini = substr($dataini, 6, 4) . substr($dataini, 3, 2) . substr($dataini, 0, 2);
+         $datafin = substr($datafin, 6, 4) . substr($datafin, 3, 2) . substr($datafin, 0, 2);
+         
+         $this->fatDia      = $this->getFatAc($dataini, $datafin);
+         $this->carteira    = $this->getCarteira();
+         $this->totalProd   = (float)$this->getProducao($dataini, $datafin);
+         $this->totalCarreg = (float)$this->getCarreg($dataini, $datafin);
+         $this->totalDev    = $this->getDev($dataini, $datafin);
+    
      }
 
 
@@ -186,6 +181,137 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
             new TMessage('error', $e->getMessage());
         }
     }
+    
+    /**
+     * getDev()
+     */
+     function getDev($dataini, $datafin)
+     {
+         if ($dataini == '' ) 
+         {
+             $dataini = date('Ymd');
+         }
+ 
+         if ($datafin == '') 
+         {
+             $datafin = date('Ymd');
+         }
+ 
+         $query = "EXEC DEVSOBEL '" . $dataini . "', '"  .  $datafin .  "'";
+ 
+         try 
+         {
+             TTransaction::open('bisobel');
+             $conn = TTransaction::get();
+             $result = $conn->query($query);
+             
+             $fat = new StdClass;
+             foreach ($result as $res) 
+             {
+                  $fat->QTDE         = $res['QTDE'];
+                  $fat->LIQ          = $res['LIQ'];
+             }
+ 
+             return $fat;
+             
+             TTransaction::close();
+         } catch (Exception $e) 
+         {
+             new TMessage('error', $e->getMessage());
+         }
+     }
+
+   /**
+     * getCarreg()
+     */
+     function getCarreg($dataini, $datafin)
+     {
+        if ($dataini == '' ) 
+        {
+            $dataini = date('Ymd');
+        }
+
+        if ($datafin == '') 
+        {
+            $datafin = date('Ymd');
+        }
+
+         $carreg = 0;
+         $query = "    SELECT SUM(MOV. QTDE ) AS 'QTDE'
+                       FROM  ARQ_MOV  MOV 
+                       LEFT OUTER JOIN  TAB_TMOV  TMOV ON MOV. TIPO_MOV  = TMOV. TIPO 
+                       LEFT OUTER JOIN  TAB_PROD  PROD ON MOV. PRODUTO  = PROD. PRODUTO  AND MOV. DONO  = PROD. DONO 
+                       LEFT JOIN TAB_FUNC TF ON TF.CODIGO = MOV.USUARIO
+                       WHERE MOV. DONO    = '001' 
+                       AND  MOV.DATA_CONF BETWEEN '{$dataini}' AND '{$datafin}'
+                       AND MOV. TIPO_MOV  IN ('S2', 'R2')  ";
+          try 
+          {
+              TTransaction::open('sisdep');
+              $conn   = TTransaction::get();
+              $result = $conn->query($query);
+      
+              foreach ($result as $res) 
+              {
+                 $carreg = (float)$res['QTDE'];
+              }            
+                          
+              return $carreg;
+              
+              TTransaction::close();
+          }catch (Exception $e) 
+          {
+              new TMessage('error', $e->getMessage());
+          }
+
+     }
+
+
+    /**
+     * getProducao()
+     */
+     function getProducao($dataini, $datafin)
+     {
+        if ($dataini == '' ) 
+        {
+            $dataini = date('Ymd');
+        }
+
+        if ($datafin == '') 
+        {
+            $datafin = date('Ymd');
+        }
+
+         $prod = 0;
+         $query = "SELECT SUM(D3_QUANT) AS 'QTDE'  	   
+                   FROM SD3010 SD3  INNER JOIN SB1010 SB1 ON SB1.B1_COD =  SD3.D3_COD  
+                   WHERE D3_EMISSAO BETWEEN CAST('{$dataini}' AS DATE) AND CAST('$datafin' AS DATE)  
+                   AND D3_ESTORNO =  ''  
+                   AND D3_CF   = 'PR0'
+                   AND D3_TIPO = 'PA'
+                   AND SD3.D_E_L_E_T_ = ''  
+                   AND SB1.D_E_L_E_T_ = '' ";
+          try 
+          {
+              TTransaction::open('protheus');
+              $conn   = TTransaction::get();
+              $result = $conn->query($query);
+      
+              foreach ($result as $res) 
+              {
+                 $prod = (float)$res['QTDE'];
+              }            
+                          
+              return $prod;
+              
+              TTransaction::close();
+          }catch (Exception $e) 
+          {
+              new TMessage('error', $e->getMessage());
+          }
+
+     }
+
 
      /**
      * getCarteira()
@@ -319,8 +445,6 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
      */
      function show()
      {
-      //   $this->getFat();
-
          parent::show();
      }
 
