@@ -24,7 +24,7 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
  * @package    DashboardFatOnline
  * @subpackage wms
  * @author     Ademilson NUnes
- * @copyright  Copyright (c) 2021 Sobel Suprema Insdustria de produtos de limpeza LTDA. (http://www.sobelsuprema.com.br)
+ * @copyright  Copyright (c) 2021 Sobel Suprema Insdustria de produtos de limpeza LTDA. (http://www.sobelsuprema.com.br) //
  * @license    http://www.adianti.com.br/framework-license
  */
  class DashboardFatOnline extends TPage
