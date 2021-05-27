@@ -214,7 +214,7 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
      */
      function getDiasUteis()
      {
-         $query = "SELECT BISOBEL.dbo.fncQtde_Dias_Uteis_Mes( (SELECT EOMONTH ( getdate() )) ) -1 AS QTDDIASEUTEIS";
+         $query = "SELECT BISOBEL.dbo.fncQtde_Dias_Uteis_Mes( (SELECT EOMONTH ( getdate() )) ) -0 AS QTDDIASEUTEIS";
  
          try 
          {

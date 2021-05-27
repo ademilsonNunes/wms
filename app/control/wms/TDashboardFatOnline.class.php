@@ -36,8 +36,8 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
     private $carteira    = 0;
     private $totalProd   = 0;
     private $totalCarreg = 0;
-    private $totalDev    = 0;
-
+    private $totalDev    = 0;    
+     
     function __construct()
     {
         $css = new TELement('link');
@@ -86,6 +86,27 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
          $totalDevCaixas      = (float)$this->totalDev->QTDE;
          $totalDevValor       = (float)$this->totalDev->LIQ;
 
+         //Bonificação Verba e Contrato
+         $bcv =  $this->getBCV('', '');
+
+
+         /*
+        echo '<pre>';
+        echo print_r($bcv)  ;
+        echo '<pre>';
+        */
+
+
+/*
+         $totalBonifCaixas = (float)$bcv[0][0]['QTDE'];
+         $totalBonifValor  = (float)$bcv[0][0]['LIB'];
+
+         $totalVerbaQtde   = (float)$bcv[0][1]['QTDE'];
+         $totalVerbaLiq    = (float)$bcv[0][1]['LIQ'];
+
+         $totalContrQtde   = (float)$bcv[0][2]['QTDE'];
+         $totalContrLiq    = (float)$bcv[0][2]['LIQ'];
+*/
 
          $html->enableSection('main', ['totalcaixas'         =>  $totalCaixas, 
                                        'totalfat'            =>  $totalFat,
@@ -138,6 +159,7 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
          $this->totalProd   = (float)$this->getProducao($dataini, $datafin);
          $this->totalCarreg = (float)$this->getCarreg($dataini, $datafin);
          $this->totalDev    = $this->getDev($dataini, $datafin);
+         $this->bcv         = $this->getBCV($dataini, $datafin);
     
      }
 
@@ -220,6 +242,50 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
              new TMessage('error', $e->getMessage());
          }
      }
+
+
+    /**
+     * Retorna totalizador de verba, bonificação e contrato dentro do período
+     * getBCV()
+     */
+     function getBCV($dataini, $datafin)
+     {
+         if ($dataini == '' ) 
+         {
+             $dataini = date('Ymd');
+         }
+ 
+         if ($datafin == '') 
+         {
+             $datafin = date('Ymd');
+         }
+ 
+         $query = "EXEC BVCSOBEL '" . $dataini . "', '"  .  $datafin .  "'";
+ 
+         try 
+         {
+             TTransaction::open('bisobel');
+             $conn = TTransaction::get();
+             $result = $conn->query($query);
+             
+             $fat = array();
+             $i = 0;
+             foreach ($result as $res) 
+             {
+                  $fat[$i]['TIPO']  = $res['TIPO'];
+                  $fat[$i]['QTDE']  = $res['QTDE'];
+                  $fat[$i]['LIQ']   = $res['LIQ'];
+                  $i++;
+             }  
+             return $fat;
+             
+             TTransaction::close();
+         } catch (Exception $e) 
+         {
+             new TMessage('error', $e->getMessage());
+         }
+     }
+
 
    /**
      * getCarreg()
