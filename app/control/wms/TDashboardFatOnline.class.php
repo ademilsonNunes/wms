@@ -87,15 +87,13 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
          $totalDevValor       = (float)$this->totalDev->LIQ;
 
          //Bonificação Verba e Contrato
-         $bcv =  $this->getBCV('', '');
-
+         $bcv =  $this->getBCV( '', '' );
 
          /*
         echo '<pre>';
         echo print_r($bcv)  ;
         echo '<pre>';
         */
-
 
 /*
          $totalBonifCaixas = (float)$bcv[0][0]['QTDE'];
@@ -123,9 +121,7 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
 
 
          $this->form->addAction('Buscar', new TAction(array($this, 'onSend')), 'far:check-circle green');
-         
-       
-
+             
             $container = new TVBox;
             $container->style = 'width: 100%';
             $panel = new TPanelGroup('Resumo de Operações');        
