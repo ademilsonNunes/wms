@@ -184,7 +184,8 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
      function getFatAc()
      {
          $dataIni = date('Ym') . '01';
-         $query = "EXEC FATSOBEL '" . $dataIni . "', '"  . date('Ymd') .  "'";
+  //       $query = "EXEC FATSOBEL '" . $dataIni . "', '"  . date('Ymd') .  "'";
+         $query = "EXEC FATSOBEL '" . $dataIni . "', '"  . date('Ymd', strtotime("-1 days")) .  "'";
  
          try 
          {
