@@ -1,4 +1,7 @@
 <?php
+
+use Adianti\Widget\Form\TEntry;
+
 /**
  * MovPallet
  *
@@ -34,19 +37,20 @@ class MovPalletForm extends TPage
 
          // create the form fields
          $id = new TEntry('CODIGO');
-         $dt_emissao = new TDate('DTEMISSAO');
+         $dt_emissao  = new TDate('DTEMISSAO');
+         $transp = new TEntry('ZZQ_DESTRA');
         
          $romaneio   = new TDBSeekButton('ZZQ_ROMANE', 'protheus', 'form_MovPallet', 'Romaneio', 'ZZQ_ROMANE');
          $romaneio->setDisplayMask('{ZZQ_ROMANE} - {ZZQ_DESTRA}  ');
          $romaneio->setDisplayLabel('Transportadora');
          
          /*
-         $customer_id->setDisplayMask('{name} - {city->name} - {city->state->name}');
-         $customer_id->setDisplayLabel('Informações do cliente');
          $customer_id->setAuxiliar($customer_name);
          */
+
         // add the fields
         $this->form->addFields( [ new TLabel('Codigo') ], [ $id ] );
+        $this->form->addFields( [ new TLabel('Transpotadora') ], [ $transp ] );
         $this->form->addFields( [ new TLabel('Romaneio (senha)') ], [ $romaneio ] );
         $this->form->addFields( [ new TLabel('Dt Emissao') ], [ $dt_emissao ] );
 
@@ -63,6 +67,7 @@ class MovPalletForm extends TPage
          $dt_emissao->setValue(date('Y-m-d'));
          $romaneio->setMinLength(0);
          $id->setEditable(FALSE);
+         $transp->setEditable(FALSE);
 
                // create the form actions
         $btn = $this->form->addAction(_t('Save'), new TAction([$this, 'onSave']), 'fa:save');
