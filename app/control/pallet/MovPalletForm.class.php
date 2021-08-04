@@ -36,9 +36,18 @@ class MovPalletForm extends TPage
         $this->form->setColumnClasses( 2, ['col-sm-5 col-lg-4', 'col-sm-7 col-lg-8'] );
 
          // create the form fields
-         $id = new TEntry('CODIGO');
-         $dt_emissao  = new TDate('DTEMISSAO');
-         $transp = new TEntry('ZZQ_DESTRA');
+         $id           = new TEntry('CODIGO');
+         $dt_emissao   = new TDate('DTEMISSAO');
+         $transp       = new TEntry('ZZQ_DESTRA');
+
+         $motorista    = new TEntry('MOTORISTA');
+         $veiculo      = new TEntry('VEICULO');
+         $placa        = new TEntry('PLACA');
+         $lacre        = new TEntry('LACRE');
+         $qtdeEnt      = new TEntry('QTDE_ENT');
+         $qtdeSai      = new TEntry('QTDE_SAI');
+         $qtdeQuebrado = new TEntry('QUEBRADO');
+         $saldo        = new TEntry('SALDO');
         
          $romaneio   = new TDBSeekButton('ZZQ_ROMANE', 'protheus', 'form_MovPallet', 'Romaneio', 'ZZQ_ROMANE');
          $romaneio->setDisplayMask('{ZZQ_ROMANE} - {ZZQ_DESTRA}  ');
@@ -54,6 +63,15 @@ class MovPalletForm extends TPage
         $this->form->addFields( [ new TLabel('Romaneio (senha)') ], [ $romaneio ] );
         $this->form->addFields( [ new TLabel('Dt Emissao') ], [ $dt_emissao ] );
 
+        $this->form->addFields( [ new TLabel('Motorista')],     [$motorista]);
+        $this->form->addFields( [ new TLabel('Veiculo')],       [$veiculo]);
+        $this->form->addFields( [ new TLabel('Placa')],         [$placa]);
+        $this->form->addFields( [ new TLabel('Lacre')],         [$lacre]);
+        $this->form->addFields( [ new TLabel('Qtde. Entrada')], [$qtdeEnt]);
+        $this->form->addFields( [ new TLabel('Qtde. Saída')],   [$qtdeSai]);
+        $this->form->addFields( [ new TLabel('Quebrado')],      [$qtdeQuebrado]);
+        $this->form->addFields( [ new TLabel('Saldo')],         [$saldo]);
+
 
         $dt_emissao->addValidation('Dt Emissao', new TRequiredValidator);
         $romaneio->addValidation('Romaneio', new TRequiredValidator);
@@ -64,10 +82,10 @@ class MovPalletForm extends TPage
          $dt_emissao->setMask('dd/mm/yyyy');
          $romaneio->setSize('100%');
 
-         $dt_emissao->setValue(date('Y-m-d'));
+         $dt_emissao->setValue(date('d-m-Y'));
          $romaneio->setMinLength(0);
          $id->setEditable(FALSE);
-         $transp->setEditable(FALSE);
+         $transp->setEditable(FALSE);         
 
                // create the form actions
         $btn = $this->form->addAction(_t('Save'), new TAction([$this, 'onSave']), 'fa:save');

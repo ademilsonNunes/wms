@@ -31,6 +31,15 @@
       </menuitem>
     </menu>
   </menuitem>
+  <menuitem label="Logistica">
+    <icon>fas:dolly fa-fw</icon>
+    <menu>
+      <menuitem label="Mov. Pallet">
+        <action>PalletList</action>
+        <icon>far:circle fa-fw</icon>
+      </menuitem>
+    </menu>
+  </menuitem>
   <menuitem label="Produção">
     <icon>fas:clipboard-list fa-fw</icon>
     <menu>
