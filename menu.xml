@@ -38,6 +38,14 @@
         <action>PalletList</action>
         <icon>far:circle fa-fw</icon>
       </menuitem>
+      <menuitem label="Itens">
+        <action>PalletCadProdList</action>
+        <icon>fas:bars fa-fw</icon>
+      </menuitem>
+      <menuitem label="TES">
+        <action>PalletCadTESList</action>
+        <icon>fas:sign-in-alt fa-fw</icon>
+      </menuitem>
     </menu>
   </menuitem>
   <menuitem label="Produção">
