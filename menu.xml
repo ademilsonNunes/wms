@@ -35,7 +35,7 @@
     <icon>fas:dolly fa-fw</icon>
     <menu>
       <menuitem label="Mov. Pallet">
-        <action>PalletList</action>
+        <action>PalletMovList</action>
         <icon>far:circle fa-fw</icon>
       </menuitem>
       <menuitem label="Itens">

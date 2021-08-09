@@ -9,7 +9,7 @@ use Adianti\Database\TRecord;
 class Romaneio extends TRecord
 {
     const TABLENAME = 'ZZQ010';
-    const PRIMARYKEY= 'R_E_C_N_O_';
+    const PRIMARYKEY= 'ZZQ_ROMANE';
     const IDPOLICY =  'max'; // {max, serial}
     
     

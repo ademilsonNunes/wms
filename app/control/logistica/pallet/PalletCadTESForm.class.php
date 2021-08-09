@@ -44,7 +44,7 @@ class PalletCadTESForm extends TPage
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_CadProd');
-        $this->form->setFormTitle('Cadastro tipo de entrada e saida');
+        $this->form->setFormTitle('Cadastro de tipo de entrada e saida');
         $this->form->setClientValidation(true);
         $this->form->setColumnClasses( 2, ['col-sm-5 col-lg-4', 'col-sm-7 col-lg-8'] );
         
