@@ -131,21 +131,21 @@ class PalletMovForm extends TWindow
          $item->setSize('70%');
          $MOTIVO->setSize('20%');
          $motivo->setSize('70%');
-
-         $DTEMISSAO->setMask('dd/mm/yyyy');
-         $DTEMISSAO->setValue(date('d-m-Y'));        
+    //     $DTEMISSAO->setValue(date('Y-m-d'));        
+    //     $DTEMISSAO->setMask('dd/mm/yyyy');     
          $trasp->setEditable(FALSE);
          $item->setEditable(FALSE);
          $item->setEditable(FALSE);
          $motivo->setEditable(FALSE);
         
          
-     //    $TIPO->addValidation('TIPO', new TRequiredValidator); 
-      //   $QTDE->addValidation('QTDE', new TRequiredValidator); 
-     //    $ITEM->addValidation('ITEM', new TRequiredValidator); 
-     //    $MOTIVO->addValidation('MOTIVO', new TRequiredValidator); 
+       //  $TIPO->addValidation('TIPO', new TRequiredValidator); 
+         $CODTRANSP->addValidation('CODTRANSP', new TRequiredValidator);
+         $QTDE->addValidation('QTDE', new TRequiredValidator); 
+         $DTEMISSAO->addValidation('DTEMISSAO', new TRequiredValidator); 
+         $ITEM->addValidation('ITEM', new TRequiredValidator); 
+         $MOTIVO->addValidation('MOTIVO', new TRequiredValidator); 
          
-
         // create the form actions
         $btn = $this->form->addAction(_t('Save'), new TAction([$this, 'onSave']), 'fa:save');
         $btn->class = 'btn btn-sm btn-primary';

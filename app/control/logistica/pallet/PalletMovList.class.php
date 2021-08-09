@@ -2,6 +2,7 @@
 
 use Adianti\Control\TAction;
 use Adianti\Control\TPage;
+use Adianti\Database\TCriteria;
 use Adianti\Widget\Container\TPanelGroup;
 use Adianti\Widget\Container\TVBox;
 use Adianti\Widget\Datagrid\TDataGrid;
@@ -46,7 +47,10 @@ class PalletMovList extends TPage
         $this->setDatabase('bisobel');               // defines the database
         $this->setActiveRecord('MovPallet');           // defines the active record
         $this->setDefaultOrder('ID', 'asc');         // defines the default order
-        $this->setLimit(10);
+        $this->setLimit(100);
+        
+       // $criteria = new TCriteria;
+       // $criteria->add(new TFilter('age',  '<', 16), TExpression::OR_OPERATOR); 
       //  $this->setCriteria($criteria); // define a standard filter
 
     
@@ -63,11 +67,6 @@ class PalletMovList extends TPage
 
         // create the form fields
         $id        = new TEntry('ID');
-        /*
-        $ROMANEIO  = new TEntry('ROMANEIO');
-        $CODTRANSP = new TEntry('CODTRANSP');
-         */
-
         $ROMANEIO   = new TDBSeekButton('ROMANEIO', 'protheus', 'form_search_mov_pallet', 'Romaneio', 'ZZQ_ROMANE');
         $ROMANEIO->setDisplayMask('{ZZQ_ROMANE} - {ZZQ_DESTRA}  ');
         $ROMANEIO->setDisplayLabel('Transportadora');  
@@ -86,8 +85,8 @@ class PalletMovList extends TPage
         $this->form->addFields( [ new TLabel('Dt.Emissão') ],[ $DTEMISSAO] );
 
         // set sizes
-        $id->setSize('100%');
-        $ROMANEIO->setSize('100%');
+        $id->setSize('5%');
+        $ROMANEIO->setSize('10%');
         $CODTRANSP->setSize('10%');
         $trasp  ->setSize('40%');
         $DTEMISSAO->setSize('10%');
@@ -112,6 +111,7 @@ class PalletMovList extends TPage
         $column_rom   = new TDataGridColumn('ROMANEIO', 'Romaneio', 'left');
         $column_tran  = new TDataGridColumn('CODTRANSP', 'Cod.Transp', 'left');
         $column_dtemi = new TDataGridColumn('DTEMISSAO', 'Dt.Emissão', 'left');
+        $column_dtemi->setTransformer(array($this, 'formatDate'));
         $column_tipo  = new TDataGridColumn('TIPO', 'Tipo', 'left');
         $column_mot   = new TDataGridColumn('TES', 'Motivo', 'left');
         $column_qtd   = new TDataGridColumn('QTDE', 'Qtde', 'left');
@@ -172,32 +172,11 @@ class PalletMovList extends TPage
         parent::add($container);
     }
     
-    /**
-     * Turn on/off an user
-     */
-    public function onTurnOnOff($param)
+
+    public function formatDate($date, $object)
     {
-        /*
-        try
-        {
-            TTransaction::open('erphouse');
-            $servico = Servico::find($param['id']);
-            
-            if ($servico instanceof Servico)
-            {
-                $servico->ativo = $servico->ativo == 'Y' ? 'N' : 'Y';
-                $servico->store();
-            }
-            
-            TTransaction::close();
-            
-            $this->onReload($param);
-        }
-        catch (Exception $e)
-        {
-            new TMessage('error', $e->getMessage());
-            TTransaction::rollback();
-        }
-        */
+        $dt = new DateTime($date);
+        return $dt->format('d/m/Y');
     }
+    
 }
