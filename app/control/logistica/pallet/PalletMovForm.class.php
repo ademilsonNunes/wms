@@ -138,25 +138,29 @@ class PalletMovForm extends TWindow
          $item->setEditable(FALSE);
          $motivo->setEditable(FALSE);
         
-         
-       //  $TIPO->addValidation('TIPO', new TRequiredValidator); 
-         $CODTRANSP->addValidation('CODTRANSP', new TRequiredValidator);
-         $QTDE->addValidation('QTDE', new TRequiredValidator); 
-         $DTEMISSAO->addValidation('DTEMISSAO', new TRequiredValidator); 
-         $ITEM->addValidation('ITEM', new TRequiredValidator); 
-         $MOTIVO->addValidation('MOTIVO', new TRequiredValidator); 
-         
+                
         // create the form actions
         $btn = $this->form->addAction(_t('Save'), new TAction([$this, 'onSave']), 'fa:save');
         $btn->class = 'btn btn-sm btn-primary';
 
+
         $this->form->addActionLink(_t('New'),  new TAction([$this, 'onEdit']), 'fa:eraser red');
+
      //  $this->form->addHeaderActionLink( _t('Close'), new TAction([$this, 'onClose']), 'fa:times red');
+        
+        //  $TIPO->addValidation('TIPO', new TRequiredValidator); 
+        /*
+        $CODTRANSP->addValidation('CODTRANSP', new TRequiredValidator);
+        $QTDE->addValidation('QTDE', new TRequiredValidator); 
+        $DTEMISSAO->addValidation('DTEMISSAO', new TRequiredValidator); 
+        $ITEM->addValidation('ITEM', new TRequiredValidator); 
+        $MOTIVO->addValidation('MOTIVO', new TRequiredValidator); 
+        */
         
         // vertical box container
         $container = new TVBox;
         $container->style = 'width: 100%';
-    //         $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+    //  $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
         $container->add($this->form);
         
         parent::add($container);

@@ -114,6 +114,7 @@ class PalletMovList extends TPage
         $column_dtemi->setTransformer(array($this, 'formatDate'));
         $column_tipo  = new TDataGridColumn('TIPO', 'Tipo', 'left');
         $column_mot   = new TDataGridColumn('TES', 'Motivo', 'left');
+    //    $column_mot   = new TDataGridColumn( $this->MovPallet->motivo, 'Motivo', 'left');
         $column_qtd   = new TDataGridColumn('QTDE', 'Qtde', 'left');
 
         // add the columns to the DataGrid  
