@@ -85,11 +85,11 @@ class PalletMovList extends TPage
         $this->form->addFields( [ new TLabel('Dt.Emissão') ],[ $DTEMISSAO] );
 
         // set sizes
-        $id->setSize('5%');
-        $ROMANEIO->setSize('10%');
+        $id->setSize('50%');
+        $ROMANEIO->setSize('50%');
         $CODTRANSP->setSize('10%');
         $trasp  ->setSize('40%');
-        $DTEMISSAO->setSize('10%');
+        $DTEMISSAO->setSize('30%');
    
          $trasp->setEditable(FALSE);
         // keep the form filled during navigation with session data

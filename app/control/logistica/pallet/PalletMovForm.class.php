@@ -95,6 +95,11 @@ class PalletMovForm extends TWindow
         $trasp = new TEntry('Transp');
         $CODTRANSP->setAuxiliar($trasp);
 
+        $codclinte   = new TDBSeekButton('CODCLIENTE', 'protheus', 'form_mov_pallet', 'Clientes', 'A1_NOME');
+        $codclinte->setDisplayMask('{A1_NOME} - {A1_LOJA} - {A1_CGC}');
+        $codclinte->setDisplayLabel('Clientes');    
+        $cliente= new TEntry('Transp');
+        $codclinte->setAuxiliar($cliente);        
 
         $btnBuscar = $this->form->addAction('Buscar dados', new TAction([$this, 'onChangeAction']), 'fa:find');
 
@@ -110,6 +115,7 @@ class PalletMovForm extends TWindow
         $this->form->addFields( [ new TLabel('Dt.Emissão') ], [ $DTEMISSAO ] );
         $this->form->addFields( [ new TLabel('Romaneio (Senha)') ],[ $ROM ] );   
         $this->form->addFields(  [$btnBuscar]  );    
+        $this->form->addFields( [ new TLabel('Cod.Cliente') ], [ $codclinte ] );
         $this->form->addFields( [ new TLabel('Cod.Transp') ], [ $CODTRANSP ] );
         $this->form->addFields( [ new TLabel('Item') ],       [ $ITEM ] );
         $this->form->addFields( [ new TLabel('Motivo') ],     [ $MOTIVO ] );
@@ -125,6 +131,8 @@ class PalletMovForm extends TWindow
          $id->setEditable(FALSE);
          $CODTRANSP->setSize('20%');
          $trasp->setSize('70%');
+         $codclinte->setSize('20%');
+         $cliente->setSize('70%');
          $ROM->setSize('20%');
          $TIPO->setSize('50%');
          $ITEM->setSize('20%');
@@ -137,6 +145,7 @@ class PalletMovForm extends TWindow
          $item->setEditable(FALSE);
          $item->setEditable(FALSE);
          $motivo->setEditable(FALSE);
+         $cliente->setEditable(FALSE);
         
                 
         // create the form actions
