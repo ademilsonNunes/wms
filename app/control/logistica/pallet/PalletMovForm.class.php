@@ -67,6 +67,8 @@ class PalletMovForm extends TWindow
         $PLACA       = new TEntry('PLACA');
         $VEIC        = new TEntry('VEICULO');
         $OBS         = new TText('OBS');
+        $PESO        = new TEntry('PESO');
+        $QTDCX       = new TEntry('QTDECX');
 
         $TIPO = new TCombo('TIPO');
         $TIPO->enableSearch();
@@ -123,10 +125,12 @@ class PalletMovForm extends TWindow
         $this->form->addFields( [ new TLabel('RG') ],         [ $RG ] );
         $this->form->addFields( [ new TLabel('Placa') ],      [ $PLACA ] );
         $this->form->addFields( [ new TLabel('Veiculo') ],    [ $VEIC ] );
-        $this->form->addFields( [ new TLabel('OBS') ],       [ $OBS ] );
-        $this->form->addFields( [ new TLabel('QTDE') ],      [ $QTDE ] );
+        $this->form->addFields( [ new TLabel('Peso') ],       [ $PESO ] );
+        $this->form->addFields( [ new TLabel('Qtde.Cxs') ],   [ $QTDCX ] );
+        $this->form->addFields( [ new TLabel('OBS') ],        [ $OBS ] );
+        $this->form->addFields( [ new TLabel('QTDE') ],       [ $QTDE ] );
 
-         // set sizes
+         // set sizes        
          $id->setSize('100%');
          $id->setEditable(FALSE);
          $CODTRANSP->setSize('20%');
@@ -204,7 +208,9 @@ class PalletMovForm extends TWindow
                                            ZZK_NOME,
                                            ZZK_RGVI,
                                            ZZK_OBSERV,
-                                           ZZK_AUTORI
+                                           ZZK_AUTORI,
+                                           ZZQ_PESO,
+                                           ZZQ_QTDCXS
                                     FROM ZZQ010 ZZQ
                                     LEFT JOIN ZZK010 ZZK ON ZZK.ZZK_OBSERV = ZZQ_ROMANE	AND ZZK.D_E_L_E_T_ = ''
                                     WHERE ZZQ_ROMANE = '{$param['ROMANEIO']}' AND ZZQ.D_E_L_E_T_ = '' ");
@@ -219,6 +225,8 @@ class PalletMovForm extends TWindow
                 $obj->PLACA      = $row['ZZK_AUTORI'];
                 $obj->VEICULO    = $row['ZZQ_DESVEI'];
                 $obj->RG         = $row['ZZK_RGVI'];
+                $obj->PESO       = $row['ZZQ_PESO'];
+                $obj->QTDECX     = $row['ZZQ_QTDCXS'];
             } 
             TTransaction::close(); // close transaction 
         } 
