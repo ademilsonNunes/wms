@@ -68,7 +68,7 @@ class PalletMovForm extends TWindow
         $VEIC        = new TEntry('VEICULO');
         $OBS         = new TText('OBS');
         $PESO        = new TEntry('PESO');
-        $QTDCX       = new TEntry('QTDECX');
+        $QTDCX       = new TEntry('QTDE_CXS');
 
         $TIPO = new TCombo('TIPO');
         $TIPO->enableSearch();
@@ -226,7 +226,7 @@ class PalletMovForm extends TWindow
                 $obj->VEICULO    = $row['ZZQ_DESVEI'];
                 $obj->RG         = $row['ZZK_RGVI'];
                 $obj->PESO       = $row['ZZQ_PESO'];
-                $obj->QTDECX     = $row['ZZQ_QTDCXS'];
+                $obj->QTDE_CXS   = number_format($row['ZZQ_QTDCXS']);
             } 
             TTransaction::close(); // close transaction 
         } 

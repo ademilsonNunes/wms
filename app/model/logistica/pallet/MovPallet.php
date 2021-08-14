@@ -33,6 +33,9 @@ class MovPallet extends TRecord
         parent::addAttribute('OBS');
         parent::addAttribute('RG');
         parent::addAttribute('ITEM');
+        parent::addAttribute('PESO');
+        parent::addAttribute('QTDE_CXS');
+        parent::addAttribute('TPFRETE');
 
     }
 
@@ -41,13 +44,14 @@ class MovPallet extends TRecord
      */
     function get_motivo()
     {
-     
+     /*
         if (empty($this->motivo))
         {
             $this->motivo = new CadTES($id);
         }
               
         return $this->motivo->MOTIVO;
+        */
         
     }
 

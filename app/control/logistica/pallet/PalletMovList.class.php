@@ -2,13 +2,17 @@
 
 use Adianti\Control\TAction;
 use Adianti\Control\TPage;
+use Adianti\Control\TWindow;
 use Adianti\Database\TCriteria;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Base\TElement;
 use Adianti\Widget\Container\TPanelGroup;
 use Adianti\Widget\Container\TVBox;
 use Adianti\Widget\Datagrid\TDataGrid;
 use Adianti\Widget\Datagrid\TDataGridAction;
 use Adianti\Widget\Datagrid\TDataGridColumn;
 use Adianti\Widget\Datagrid\TPageNavigation;
+use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TLabel;
@@ -138,11 +142,14 @@ class PalletMovList extends TPage
         $action1 = new TDataGridAction(['PalletMovForm', 'onEdit'], ['ID'=>'{ID}', 'register_state' => 'false']);
       //  $action2 = new TDataGridAction([$this, 'onTurnOnOff'], ['id'=>'{ID}']);
         $action3 = new TDataGridAction([$this, 'onDelete'], ['ID'=>'{ID}']);
+
+        $action2 = new TDataGridAction( [$this, 'onPrint'], ['ID'=>'{ID}']);
         
         $this->datagrid->addAction($action1, _t('Edit'),   'far:edit blue');
   //      $this->datagrid->addAction($action2 ,_t('Activate/Deactivate'), 'fa:power-off orange');
 
         $this->datagrid->addAction($action3 ,_t('Delete'), 'far:trash-alt red');
+        $this->datagrid->addAction($action2 ,'Imprimir', 'fa:print');
         
         // create the datagrid model
         $this->datagrid->createModel();
@@ -160,7 +167,7 @@ class PalletMovList extends TPage
         $dropdown->setPullSide('right');
         $dropdown->setButtonClass('btn btn-default waves-effect dropdown-toggle');
         $dropdown->addAction( _t('Save as CSV'), new TAction([$this, 'onExportCSV'], ['register_state' => 'false', 'static'=>'1']), 'fa:table blue' );
-        $dropdown->addAction( _t('Save as PDF'), new TAction([$this, 'onExportPDF'], ['register_state' => 'false', 'static'=>'1']), 'far:file-pdf red' );
+      //  $dropdown->addAction( _t('Save as PDF'), new TAction([$this, 'onExportPDF'], ['register_state' => 'false', 'static'=>'1']), 'far:file-pdf red' );
         $panel->addHeaderWidget( $dropdown );
         
         // vertical box container
@@ -178,6 +185,69 @@ class PalletMovList extends TPage
     {
         $dt = new DateTime($date);
         return $dt->format('d/m/Y');
+    }
+
+
+    public function onPrint($param)
+    {
+       //new TMessage('info', $param['ID']);
+       
+       try
+       {
+           TTransaction::open('bisobel');
+           $movPallet = MovPallet::find($param['ID']);
+           
+           new TMessage('info', $movPallet->ROMANEIO); 
+           
+           TTransaction::close();
+           
+           $this->onReload($param);
+       }
+       catch (Exception $e)
+       {
+           new TMessage('error', $e->getMessage());
+           TTransaction::rollback();
+       }
+
+
+
+
+
+
+
+
+
+       /*
+       try
+       {
+           // string with HTML contents        
+          // $contents = file_get_contents('app/resources/palete_comprovante.html') . $html->getContents();
+           
+           // converts the HTML template into PDF
+           $dompdf = new \Dompdf\Dompdf();
+      //     $dompdf->loadHtml($contents);
+           $dompdf->setPaper('A4', 'portrait');
+           $dompdf->render();
+           
+           $file = 'app/output/palete_comprovante.pdf';
+           
+           // write and open file
+           file_put_contents($file, $dompdf->output());
+           
+           $window = TWindow::create('Export', 0.8, 0.8);
+           $object = new TElement('object');
+           $object->data  = $file;
+           $object->type  = 'application/pdf';
+           $object->style = "width: 100%; height:calc(100% - 10px)";
+           $window->add($object);
+           $window->show();
+       }
+       catch (Exception $e)
+       {
+           new TMessage('error', $e->getMessage());
+       }
+      */
+
     }
     
 }
