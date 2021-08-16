@@ -191,7 +191,7 @@ class PalletMovList extends TPage
 
     public function onPrint($param)
     {
-       $html      = new THtmlRenderer('app/resources/palete_comprovante.html');   
+        $html      = new THtmlRenderer('app/resources/palete_comprovante.html');   
 
        try
        {
@@ -199,13 +199,9 @@ class PalletMovList extends TPage
            $movPallet = MovPallet::find($param['ID']);
            
            $html->enableSection('main', ['transp' => $movPallet->CODTRANSP]);
-
-         //  new TMessage('info', $movPallet->ROMANEIO); 
-            
-           
+      
            TTransaction::close();
-           
-           $this->onReload($param);
+             
        }
        catch (Exception $e)
        {
