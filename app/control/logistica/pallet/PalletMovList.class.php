@@ -16,6 +16,7 @@ use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TLabel;
+use Adianti\Widget\Template\THtmlRenderer;
 use Adianti\Widget\Util\TDropDown;
 use Adianti\Widget\Util\TXMLBreadCrumb;
 use Adianti\Widget\Wrapper\TDBSeekButton;
@@ -46,8 +47,8 @@ class PalletMovList extends TPage
      */
     public function __construct()
     {
-        parent::__construct();
-        
+        parent::__construct();       
+
         $this->setDatabase('bisobel');               // defines the database
         $this->setActiveRecord('MovPallet');           // defines the active record
         $this->setDefaultOrder('ID', 'asc');         // defines the default order
@@ -190,14 +191,17 @@ class PalletMovList extends TPage
 
     public function onPrint($param)
     {
-       //new TMessage('info', $param['ID']);
-       
+       $html      = new THtmlRenderer('app/resources/palete_comprovante.html');   
+
        try
        {
            TTransaction::open('bisobel');
            $movPallet = MovPallet::find($param['ID']);
            
-           new TMessage('info', $movPallet->ROMANEIO); 
+           $html->enableSection('main', ['transp' => $movPallet->CODTRANSP]);
+
+         //  new TMessage('info', $movPallet->ROMANEIO); 
+            
            
            TTransaction::close();
            
@@ -209,23 +213,14 @@ class PalletMovList extends TPage
            TTransaction::rollback();
        }
 
-
-
-
-
-
-
-
-
-       /*
        try
        {
            // string with HTML contents        
-          // $contents = file_get_contents('app/resources/palete_comprovante.html') . $html->getContents();
+           $contents = file_get_contents('app/resources/palete_comprovante.html') . $html->getContents();
            
            // converts the HTML template into PDF
            $dompdf = new \Dompdf\Dompdf();
-      //     $dompdf->loadHtml($contents);
+           $dompdf->loadHtml($contents);
            $dompdf->setPaper('A4', 'portrait');
            $dompdf->render();
            
@@ -246,7 +241,6 @@ class PalletMovList extends TPage
        {
            new TMessage('error', $e->getMessage());
        }
-      */
 
     }
     
