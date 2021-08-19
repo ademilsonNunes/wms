@@ -10,7 +10,7 @@ class CadTES extends TRecord
 {
     const TABLENAME = 'TES';
     const PRIMARYKEY= 'ID';
-    const IDPOLICY =  'max'; // {max, serial}
+    const IDPOLICY =  'serial'; // {max, serial}
 
     
     /**

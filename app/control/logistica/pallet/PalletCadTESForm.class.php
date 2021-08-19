@@ -37,7 +37,7 @@ class PalletCadTESForm extends TPage
         parent::__construct();
         
         parent::setTargetContainer('adianti_right_panel');
-        $this->setAfterSaveAction( new TAction(['PalletCadProdList', 'onReload'], ['register_state' => 'true']) );
+        $this->setAfterSaveAction( new TAction(['PalletCadTESList', 'onReload'], ['register_state' => 'true']) );
 
         $this->setDatabase('bisobel');              // defines the database
         $this->setActiveRecord('CadTES');     // defines the active record

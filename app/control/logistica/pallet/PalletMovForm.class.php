@@ -212,7 +212,7 @@ class PalletMovForm extends TWindow
                                            ZZQ_PESO,
                                            ZZQ_QTDCXS
                                     FROM ZZQ010 ZZQ
-                                    LEFT JOIN ZZK010 ZZK ON ZZK.ZZK_OBSERV = ZZQ_ROMANE	AND ZZK.D_E_L_E_T_ = ''
+                                    LEFT JOIN ZZK010 ZZK ON ZZK.ZZK_ROMANE = ZZQ_ROMANE	AND ZZK.D_E_L_E_T_ = ''
                                     WHERE ZZQ_ROMANE = '{$param['ROMANEIO']}' AND ZZQ.D_E_L_E_T_ = '' ");
             
             // show results 
