@@ -226,7 +226,7 @@ class PalletMovForm extends TWindow
                 $obj->VEICULO    = $row['ZZQ_DESVEI'];
                 $obj->RG         = $row['ZZK_RGVI'];
                 $obj->PESO       = $row['ZZQ_PESO'];
-                $obj->QTDE_CXS   = number_format($row['ZZQ_QTDCXS']);
+                $obj->QTDE_CXS   = str_replace(",","", number_format($row['ZZQ_QTDCXS']) );
             } 
             TTransaction::close(); // close transaction 
         } 
