@@ -210,14 +210,19 @@ class PalletMovList extends TPage
        }
 
        try
-       {
+       { 
+           $container = new TVBox;
+           $container->style = 'width: 100%';  
+           $container->add($html); 
+         
            // string with HTML contents        
-           $contents = file_get_contents('app/resources/palete_comprovante.html') . $html->getContents();
+         //  $contents = file_get_contents('app/resources/palete_comprovante.html') . $html->getContents();
            
            // converts the HTML template into PDF
            $dompdf = new \Dompdf\Dompdf();
-           $dompdf->loadHtml($contents);
-           $dompdf->setPaper('A4', 'portrait');
+           $dompdf->loadHtml($container);
+         //  $dompdf->loadHtml($contents);
+           $dompdf->setPaper('A4', 'landscape');
            $dompdf->render();
            
            $file = 'app/output/palete_comprovante.pdf';
