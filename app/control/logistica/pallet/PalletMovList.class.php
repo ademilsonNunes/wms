@@ -198,7 +198,14 @@ class PalletMovList extends TPage
            TTransaction::open('bisobel');
            $movPallet = MovPallet::find($param['ID']);
            
-           $html->enableSection('main', ['transp' => $movPallet->CODTRANSP]);
+           $html->enableSection('main', ['transp' => $movPallet->CODTRANSP, 
+                                        'motorista' => $movPallet->MOTORISTA,
+                                        'rg' => $movPallet->RG,
+                                        'placa' => $movPallet->PLACA,
+                                        'tipo' => $movPallet->TIPO,
+                                        'qtde' => $movPallet->QTDE,
+                                        'romaneio' => $movPallet->ROMANEIO
+                                        ]);
       
            TTransaction::close();
              
@@ -223,6 +230,7 @@ class PalletMovList extends TPage
            $dompdf->loadHtml($container);
          //  $dompdf->loadHtml($contents);
            $dompdf->setPaper('A4', 'landscape');
+         //  $dompdf->setPaper('A4', 'portrait');
            $dompdf->render();
            
            $file = 'app/output/palete_comprovante.pdf';
