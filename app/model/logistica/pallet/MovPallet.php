@@ -12,7 +12,7 @@ class MovPallet extends TRecord
     const PRIMARYKEY= 'ID';
     const IDPOLICY =  'serial'; // {max, serial}
     
-    private $motivo;
+    private $transp;
 
     /**
      * Constructor method
@@ -38,22 +38,5 @@ class MovPallet extends TRecord
         parent::addAttribute('TPFRETE');
 
     }
-
-    /**
-     * 
-     */
-    function get_motivo()
-    {
-     /*
-        if (empty($this->motivo))
-        {
-            $this->motivo = new CadTES($id);
-        }
-              
-        return $this->motivo->MOTIVO;
-        */
-        
-    }
-
     
 }

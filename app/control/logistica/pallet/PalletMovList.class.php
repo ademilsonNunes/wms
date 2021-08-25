@@ -181,14 +181,51 @@ class PalletMovList extends TPage
         parent::add($container);
     }
     
+    /**
+     * getTransp
+     * @param mixed $id 
+     * @return void 
+     */
+    public function getTransp($id)
+    {
+        $content = '';
+        try
+       {
+           TTransaction::open('protheus');
+           $transp = Transp::find($id);
+           $content = $transp->A4_NOME;                     
+      
+           TTransaction::close();
 
+           return $content;
+              
+       }
+       catch (Exception $e)
+       {
+           new TMessage('error', $e->getMessage());
+           TTransaction::rollback();
+       }
+
+    }
+
+
+    /**
+     * formatDate
+     * @param mixed $date 
+     * @param mixed $object 
+     * @return string 
+     */
     public function formatDate($date, $object)
     {
         $dt = new DateTime($date);
         return $dt->format('d/m/Y');
     }
 
-
+   /**
+    * onPrint
+    * @param mixed $param 
+    * @return void 
+    */
     public function onPrint($param)
     {
         $html      = new THtmlRenderer('app/resources/palete_comprovante.html');   
@@ -198,12 +235,22 @@ class PalletMovList extends TPage
            TTransaction::open('bisobel');
            $movPallet = MovPallet::find($param['ID']);
            
+           if($movPallet->TIPO = 'S')
+           {
+               $tipo = 'Saída'; 
+           }
+           else
+           {
+                 $tipo = 'Entrada';
+           }
+
            $html->enableSection('main', ['transp' => $movPallet->CODTRANSP, 
                                         'motorista' => $movPallet->MOTORISTA,
                                         'rg' => $movPallet->RG,
                                         'placa' => $movPallet->PLACA,
-                                        'tipo' => $movPallet->TIPO,
+                                        'tipo' => $tipo,
                                         'qtde' => $movPallet->QTDE,
+                                        'transpNome' => $this->getTransp($movPallet->CODTRANSP),
                                         'romaneio' => $movPallet->ROMANEIO
                                         ]);
       
@@ -229,8 +276,8 @@ class PalletMovList extends TPage
            $dompdf = new \Dompdf\Dompdf();
            $dompdf->loadHtml($container);
          //  $dompdf->loadHtml($contents);
-           $dompdf->setPaper('A4', 'landscape');
-         //  $dompdf->setPaper('A4', 'portrait');
+          // $dompdf->setPaper('A4', 'landscape');
+           $dompdf->setPaper('A4', 'portrait');
            $dompdf->render();
            
            $file = 'app/output/palete_comprovante.pdf';

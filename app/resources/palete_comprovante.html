@@ -1,32 +1,32 @@
  <!-- Bootstrap CSS -->
  <html>
    <head>
+     <style type="css">
+       @page { margin: 2px; } body { margin: 2px; } 
+     </style>
  <meta charset="utf-8"/>
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<table class="table" width="200px">
+<table class="table" width="200px" border="1">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" colspan="4"><p align="left">SOBEL SUPREMA INDUSTRIA E COMÉRCIO DE PRODUTOS DE LIMPEZA LTDA.</p></th>
-        <th scope="col" colspa="2">DATA</th>
-        <th scope="col" >14/08/2021</th>
+        <th scope="col" colspan="3"><p align="left">&nbsp;SOBEL SUPREMA IND. COM. DE PROD. DE LIMPEZA LTDA.</p></th>
+        <th scope="col">14/08/2021</th>  
       </tr>
     </thead>
     <tbody>
       <tr>
         <th scope="row"><p align="left"></p>Transp.:</p></th>
         <td><p align="left">{$transp}</p></td>
-        <td></td>
-        <td></td>
+        <td colspan="2">{$transpNome}</td>        
       </tr>   
     </tbody>
     <tbody>
       <tr>
         <th scope="row">Motorísta</th>
         <td colspan="2">{$motorista}</td>
-        <th scope="row">RG</th>
-        <td>{$rg}</td>
+        <th><p align="left">RG {$rg}</p></th>       
       </tr>   
     </tbody>
     <tbody>
@@ -48,7 +48,71 @@
     <tbody>
       <tr>
         <td colspan="5"><p align = "left">Eu na condição de motorista, declaro que fui orientado e acompanhei todo o <b>carregamento
-          e conferência</b> das mercadoria descriminadas nas notas acima, afirmo que as quantidades estão de acordo com a nota
+          e conferência</b> das mercadoria descriminadas nas notas acima, afirmo que as quantidades estão de acordo  com a nota<br/>
+          e que a carga está em perfeitas condições.</p>
+        </td>
+      </tr>   
+    </tbody>
+    <tbody>
+      <tr>
+        <th scope="row" colspan="2">Motorísta</th>
+        <th scope="row">Liberação</th>
+        <th scope="row">Responsável expedição</th>
+      </tr>   
+      <tr>
+        <th scope="row" colspan="2">________________________________</th>
+        <th scope="row">________________________________</th>
+        <th scope="row">________________________________</th>
+      </tr>  
+    </tbody>
+    <tbody>
+      <tr>
+        <th scope="row" colspan="4">Obs. Ná condição de retira destacar canhotos, coletar assinaturas e reter juntamente com romaneio de carregamento.</th>
+      </tr>  
+    </tbody>
+  </table>
+  <p>----------------------------------------------------------------------------------------------------------------------------------------------------</p>
+  <table class="table" width="200px" border="1">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" colspan="3"><p align="left">&nbsp;SOBEL SUPREMA IND. COM. DE PROD. DE LIMPEZA LTDA.</p></th>
+        <th scope="col">14/08/2021</th>  
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><p align="left"></p>Transp.:</p></th>
+        <td><p align="left">{$transp}</p></td>
+        <td colspan="2">{$transpNome}</td>        
+      </tr>   
+    </tbody>
+    <tbody>
+      <tr>
+        <th scope="row">Motorísta</th>
+        <td colspan="2">{$motorista}</td>
+        <th><p align="left">RG {$rg}</p></th>       
+      </tr>   
+    </tbody>
+    <tbody>
+      <tr>
+        <th scope="row">Veic/Placa</th>
+        <td>{$placa}</td>
+        <th scope="row">Romaneio(SENHA)</th>
+        <td>{$romaneio}</td>
+      </tr>   
+    </tbody>
+    <tbody>
+      <tr>
+        <th scope="row"><p align="left">Tipo</p></th>
+        <td>{$tipo}</td>
+        <th scope="row">Qtde</th>
+        <td>{$qtde}</td>
+      </tr>   
+    </tbody>
+    <tbody>
+      <tr>
+        <td colspan="5"><p align = "left">Eu na condição de motorista, declaro que fui orientado e acompanhei todo o <b>carregamento
+          e conferência</b> das mercadoria descriminadas nas notas acima, afirmo que as quantidades estão de acordo  com a nota<br/>
           e que a carga está em perfeitas condições.</p>
         </td>
       </tr>   
