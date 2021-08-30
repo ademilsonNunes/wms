@@ -11,6 +11,10 @@
     "pablodalloglio/spreadsheet_excel_writer": "dev-master",
     "kint-php/kint": "^3.3",
         "tangent-solutions/powerbi-sdk": "@dev",
-        "league/oauth2-client": "@dev"
+        "league/oauth2-client": "@dev",
+        "nfephp-org/sped-nfe": "^5.0",
+        "nfephp-org/sped-cte": "dev-master",
+        "nfephp-org/sped-da": "dev-master",
+        "nfephp-org/sped-common": "^5.0"
     }
 }

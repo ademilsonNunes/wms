@@ -10,5 +10,6 @@ return array(
     'Sabberworm\\CSS' => array($vendorDir . '/sabberworm/php-css-parser/lib'),
     'PHPRtfLite' => array($vendorDir . '/phprtflite/phprtflite/lib'),
     'OLE' => array($vendorDir . '/pablodalloglio/ole'),
+    'ForceUTF8\\' => array($vendorDir . '/neitanod/forceutf8/src'),
     'BaconQrCode' => array($vendorDir . '/bacon/bacon-qr-code/src'),
 );
