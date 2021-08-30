@@ -21,16 +21,9 @@ class MonitorDFeDevList extends TPage
 
         $dfe = new TFSistDFe();
 
-        $notas = $dfe->getNFeDevJSON();
-
-        $result = json_decode($notas, true);
+        $notas = $dfe->getNFeDevJSON();        
         
-        echo '<pre>';
+        d($notas);
         
-        print_r((array) $result);
-    
-
-    
-
     }
 }
