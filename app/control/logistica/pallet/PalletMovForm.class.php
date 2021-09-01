@@ -62,6 +62,7 @@ class PalletMovForm extends TWindow
         $id          = new TEntry('ID');    
         $DTEMISSAO   = new TDate('DTEMISSAO');
         $QTDE        = new TEntry('QTDE');
+        $QTDERET     = new TEntry('QTDERET');
         $MOTORISTA   = new TEntry('MOTORISTA');
         $RG          = new TEntry('RG');
         $PLACA       = new TEntry('PLACA');
@@ -129,6 +130,7 @@ class PalletMovForm extends TWindow
         $this->form->addFields( [ new TLabel('Qtde.Cxs') ],   [ $QTDCX ] );
         $this->form->addFields( [ new TLabel('OBS') ],        [ $OBS ] );
         $this->form->addFields( [ new TLabel('QTDE') ],       [ $QTDE ] );
+        $this->form->addFields( [ new TLabel('Retorno') ],     [ $QTDERET ] );
 
          // set sizes        
          $id->setSize('100%');

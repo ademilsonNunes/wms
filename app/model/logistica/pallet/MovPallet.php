@@ -36,6 +36,7 @@ class MovPallet extends TRecord
         parent::addAttribute('PESO');
         parent::addAttribute('QTDE_CXS');
         parent::addAttribute('TPFRETE');
+        parent::addAttribute('QTDERET');
 
     }
     

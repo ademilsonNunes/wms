@@ -15,15 +15,18 @@ use plugins\TFSistDFe\TFSistDFe;
 
 class MonitorDFeDevList extends TPage
 {
+    /** @return void  */
     public function __construct()
     {
         parent::__construct();
 
         $dfe = new TFSistDFe();
 
-        $notas = $dfe->getNFeDevJSON();        
+        $notas = $dfe->getNFeDevJSON(500);        
         
-        d($notas);
+        echo '<pre>';
+        print_r($notas);
+       // d($notas);
         
     }
 }

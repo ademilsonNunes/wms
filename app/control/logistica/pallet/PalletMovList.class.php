@@ -251,8 +251,9 @@ class PalletMovList extends TPage
                                         'tipo' => $tipo,
                                         'qtde' => $movPallet->QTDE,
                                         'transpNome' => $this->getTransp($movPallet->CODTRANSP),
-                                        'romaneio' => $movPallet->ROMANEIO
-                                        ]);
+                                        'romaneio' => $movPallet->ROMANEIO,
+                                        'qtdeRet'  => $movPallet->QTDERET
+                                        ]); 
       
            TTransaction::close();
              
