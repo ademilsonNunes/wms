@@ -130,7 +130,7 @@ class PalletMovForm extends TWindow
         $this->form->addFields( [ new TLabel('Qtde.Cxs') ],   [ $QTDCX ] );
         $this->form->addFields( [ new TLabel('OBS') ],        [ $OBS ] );
         $this->form->addFields( [ new TLabel('QTDE') ],       [ $QTDE ] );
-        $this->form->addFields( [ new TLabel('Retorno') ],     [ $QTDERET ] );
+       // $this->form->addFields( [ new TLabel('Retorno') ],     [ $QTDERET ] );
 
          // set sizes        
          $id->setSize('100%');

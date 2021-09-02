@@ -207,7 +207,42 @@ class PalletMovList extends TPage
        }
 
     }
+   
 
+    /**
+     * getRetornoPalete
+     * @param mixed $romaneio 
+     * @return string
+     */
+    public function getRetornoPalete($romaneio)
+    {   
+        
+        $query = "SELECT QTDE 
+                  FROM MOV_PALLET
+                  WHERE ROMANEIO = '{$romaneio}'
+                  AND TIPO = 'E' ";
+
+        try 
+        {
+            TTransaction::open('bisobel');
+            $conn = TTransaction::get();
+            $result = $conn->query($query);
+            
+            $fat = new StdClass;
+            foreach ($result as $res) 
+            {
+                 $fat->QTDERET  = $res['QTDE'];
+            }
+
+            return (string)$fat->QTDERET;
+            
+            TTransaction::close();
+        } catch (Exception $e) 
+        {
+            new TMessage('error', $e->getMessage());
+        }
+
+    }
 
     /**
      * formatDate
@@ -228,76 +263,98 @@ class PalletMovList extends TPage
     */
     public function onPrint($param)
     {
-        $html      = new THtmlRenderer('app/resources/palete_comprovante.html');   
+        TTransaction::open('bisobel');
+        $movPallet = MovPallet::find($param['ID']);
+        
+        if($movPallet->TIPO == 'S')
+        {
+            $tipo = 'Saída'; 
+        }
+        else
+        {
+              $tipo = 'Entrada';
+        }
 
-       try
-       {
-           TTransaction::open('bisobel');
-           $movPallet = MovPallet::find($param['ID']);
-           
-           if($movPallet->TIPO = 'S')
-           {
-               $tipo = 'Saída'; 
-           }
-           else
-           {
-                 $tipo = 'Entrada';
-           }
-
-           $html->enableSection('main', ['transp' => $movPallet->CODTRANSP, 
-                                        'motorista' => $movPallet->MOTORISTA,
-                                        'rg' => $movPallet->RG,
-                                        'placa' => $movPallet->PLACA,
-                                        'tipo' => $tipo,
-                                        'qtde' => $movPallet->QTDE,
-                                        'transpNome' => $this->getTransp($movPallet->CODTRANSP),
-                                        'romaneio' => $movPallet->ROMANEIO,
-                                        'qtdeRet'  => $movPallet->QTDERET
-                                        ]); 
-      
-           TTransaction::close();
-             
-       }
-       catch (Exception $e)
-       {
-           new TMessage('error', $e->getMessage());
-           TTransaction::rollback();
-       }
-
-       try
-       { 
-           $container = new TVBox;
-           $container->style = 'width: 100%';  
-           $container->add($html); 
+    if($movPallet->TIPO == 'S')
+    {
+     $html      = new THtmlRenderer('app/resources/palete_comprovante.html');   
+    
+     try
+     {
+         TTransaction::open('bisobel');
+         $movPallet = MovPallet::find($param['ID']);
          
-           // string with HTML contents        
-         //  $contents = file_get_contents('app/resources/palete_comprovante.html') . $html->getContents();
+         if($movPallet->TIPO = 'S')
+         {
+             $tipo = 'Saída'; 
+         }
+         else
+         {
+               $tipo = 'Entrada';
+         }
+         
+         $html->enableSection('main', ['transp' => $movPallet->CODTRANSP, 
+                                      'motorista' => $movPallet->MOTORISTA,
+                                      'rg' => $movPallet->RG,
+                                      'dtemissao' => $this->formatDate($movPallet->DTEMISSAO, $this),
+                                      'placa' => $movPallet->PLACA,
+                                      'tipo' => $tipo,
+                                      'qtde' => $movPallet->QTDE,
+                                      'transpNome' => $this->getTransp($movPallet->CODTRANSP),
+                                      'romaneio' => $movPallet->ROMANEIO,
+                                      'qtdeRet'  => $this->getRetornoPalete($movPallet->ROMANEIO)
+                                      ]); 
+    
+         TTransaction::close();
            
-           // converts the HTML template into PDF
-           $dompdf = new \Dompdf\Dompdf();
-           $dompdf->loadHtml($container);
-         //  $dompdf->loadHtml($contents);
-          // $dompdf->setPaper('A4', 'landscape');
-           $dompdf->setPaper('A4', 'portrait');
-           $dompdf->render();
-           
-           $file = 'app/output/palete_comprovante.pdf';
-           
-           // write and open file
-           file_put_contents($file, $dompdf->output());
-           
-           $window = TWindow::create('Export', 0.8, 0.8);
-           $object = new TElement('object');
-           $object->data  = $file;
-           $object->type  = 'application/pdf';
-           $object->style = "width: 100%; height:calc(100% - 10px)";
-           $window->add($object);
-           $window->show();
-       }
-       catch (Exception $e)
-       {
-           new TMessage('error', $e->getMessage());
-       }
+     }
+     catch (Exception $e)
+     {
+         new TMessage('error', $e->getMessage());
+         TTransaction::rollback();
+     }
+
+     try
+     { 
+         $container = new TVBox;
+         $container->style = 'width: 100%';  
+         $container->add($html); 
+       
+         // string with HTML contents        
+       //  $contents = file_get_contents('app/resources/palete_comprovante.html') . $html->getContents();
+         
+         // converts the HTML template into PDF
+         $dompdf = new \Dompdf\Dompdf();
+         $dompdf->loadHtml($container);
+       //  $dompdf->loadHtml($contents);
+        // $dompdf->setPaper('A4', 'landscape');
+         $dompdf->setPaper('A4', 'portrait');
+         $dompdf->render();
+         
+         $file = 'app/output/palete_comprovante.pdf';
+         
+         // write and open file
+         file_put_contents($file, $dompdf->output());
+         
+         $window = TWindow::create('Export', 0.8, 0.8);
+         $object = new TElement('object');
+         $object->data  = $file;
+         $object->type  = 'application/pdf';
+         $object->style = "width: 100%; height:calc(100% - 10px)";
+         $window->add($object);
+         $window->show();
+     }
+     catch (Exception $e)
+     {
+         new TMessage('error', $e->getMessage());
+     }
+
+    }else{
+
+        new TMessage('info', 'Favor imprimir processo de saída');
+
+    }
+
 
     }
     
