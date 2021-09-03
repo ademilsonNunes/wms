@@ -25,9 +25,11 @@ class MonitorDFeDevList extends TPage
 
         $notas = $dfe->getNFeDevJSON(200);        
          
-        echo '<pre>';
-        print_r($notas);
         
+         echo '<pre>';
+         print_r($notas);
+        
+
        // d($notas);
         
     }

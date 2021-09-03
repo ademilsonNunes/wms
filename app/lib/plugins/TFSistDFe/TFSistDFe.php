@@ -72,7 +72,7 @@ class TFSistDFe extends TElement
            
          $response = curl_exec($this->curl);
          //$result .= json_decode($response);
-         array_push($result, json_decode($response));
+         array_push($result, $response);
      }
      
       curl_close($this->curl);
