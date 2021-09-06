@@ -116,12 +116,11 @@ class PalletMovList extends TPage
         $column_rom   = new TDataGridColumn('ROMANEIO', 'Romaneio', 'left');
         $column_tran  = new TDataGridColumn('CODTRANSP', 'Cod.Transp', 'left');
         $column_transp  = new TDataGridColumn('CODTRANSP', 'Trasp.', 'left');
-
         $column_transp->setTransformer(array($this, 'getTransp'));
-
         $column_dtemi = new TDataGridColumn('DTEMISSAO', 'Dt.Emissão', 'left');
         $column_dtemi->setTransformer(array($this, 'formatDate'));
         $column_tipo  = new TDataGridColumn('TIPO', 'Tipo', 'left');
+        $column_tipo->setTransformer(array($this, 'getTipoMov'));
         $column_mot   = new TDataGridColumn('TES', 'Motivo', 'left');
         $column_mot->setTransformer(array($this, 'getMotivo'));
 
@@ -288,6 +287,27 @@ class PalletMovList extends TPage
     {
         $dt = new DateTime($date);
         return $dt->format('d/m/Y');
+    } 
+
+
+    /**
+     * getTipoMov
+     * @param stringg $tipo 
+     * @return string 
+     */
+    public function getTipoMov($tipo)
+    {
+        if($tipo == 'S')
+        {
+            $tipo = 'Saída'; 
+        }
+        else
+        {
+              $tipo = 'Entrada';
+        }
+
+        return $tipo;
+
     }
 
    /**
