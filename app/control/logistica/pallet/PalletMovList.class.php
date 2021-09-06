@@ -115,10 +115,16 @@ class PalletMovList extends TPage
         $column_id    = new TDataGridColumn('ID', 'Id', 'center', '10%');
         $column_rom   = new TDataGridColumn('ROMANEIO', 'Romaneio', 'left');
         $column_tran  = new TDataGridColumn('CODTRANSP', 'Cod.Transp', 'left');
+        $column_transp  = new TDataGridColumn('CODTRANSP', 'Trasp.', 'left');
+
+        $column_transp->setTransformer(array($this, 'getTransp'));
+
         $column_dtemi = new TDataGridColumn('DTEMISSAO', 'Dt.Emissão', 'left');
         $column_dtemi->setTransformer(array($this, 'formatDate'));
         $column_tipo  = new TDataGridColumn('TIPO', 'Tipo', 'left');
         $column_mot   = new TDataGridColumn('TES', 'Motivo', 'left');
+        $column_mot->setTransformer(array($this, 'getMotivo'));
+
     //    $column_mot   = new TDataGridColumn( $this->MovPallet->motivo, 'Motivo', 'left');
         $column_qtd   = new TDataGridColumn('QTDE', 'Qtde', 'left');
 
@@ -126,6 +132,7 @@ class PalletMovList extends TPage
         $this->datagrid->addColumn($column_id);
         $this->datagrid->addColumn($column_rom);
         $this->datagrid->addColumn($column_tran);
+        $this->datagrid->addColumn($column_transp);
         $this->datagrid->addColumn($column_dtemi);
         $this->datagrid->addColumn($column_tipo);
         $this->datagrid->addColumn($column_mot);
@@ -207,6 +214,33 @@ class PalletMovList extends TPage
        }
 
     }
+
+    /**
+     * Get motivo da movimentacao
+     * @param mixed $tes 
+     * @return string $motivo 
+     */
+    public function getMotivo($tes)
+    {       
+       
+        $content = '';
+        try
+       {
+           TTransaction::open('bisobel');
+           $tes = CadTES::find($tes);
+           $content = $tes->MOTIVO;                     
+      
+           TTransaction::close();
+
+           return $content;
+              
+       }
+       catch (Exception $e)
+       {
+           new TMessage('error', $e->getMessage());
+           TTransaction::rollback();
+       }
+    }    
    
 
     /**
