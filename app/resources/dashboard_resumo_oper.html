@@ -1,47 +1,65 @@
-<!--[main]-->        
-        <div class="panel panel-blue">
-                <div class="panel-heading">Faturamento</div>
-                <div class="panel-body">
-                        <div id="sum_box" class="row mbl">
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="panel profit1 db mbm">
-                                        <div class="panel-body">
-                                            <p class="icon">
-                                                <i class="icon fa fa-shopping-cart"></i>
-                                            </p>
-                                            <h4 class="value">
-                                                <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">{$totalcaixas}</span></h4>
-                                            <p class="description">
-                                                Caixas</p>                   
-                                        </div>
-                                    </div>
-                                </div>                                
-                        </div>   
-                </div>
-        </div>
-        
-        <div class="panel panel-red">
-            <div class="panel-heading">Devolução</div>
+<!--[main]-->   
+
+        <div class="panel panel-green">
+            <div class="panel-heading">Faturamento</div>
             <div class="panel-body">
                     <div id="sum_box" class="row mbl">
                             <div class="col-sm-6 col-md-3">
-                                <div class="panel profit db mbm">
+                                <div class="panel visit db mbm">
+                                    <div class="panel-body">
+                                        <p class="icon">
+                                            <i class="icon fa fa-shopping-cart"></i>
+                                        </p>
+                                        <h4 class="value">
+                                            <span data-counter="" data-start="" data-end="" data-step="" data-duration="">{$totalbruto}</span></h4>
+                                        <p class="description">
+                                            Total Bruto</p>                   
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="panel task2 db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
                                             <i class="icon fa fa-box"></i>
                                         </p>
                                         <h4 class="value">
-                                            <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">{$total_dev}</span></h4>
+                                            <span>{$totalbonifcaixas}</span></h4>
                                         <p class="description">
-                                            Caixas</p>                   
+                                            Bonificação</p>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-sm-6 col-md-3">
+                                <div class="panel task2 db mbm">
+                                    <div class="panel-body">
+                                        <p class="icon">
+                                            <i class="icon fa fa-box"></i>
+                                        </p>
+                                        <h4 class="value">
+                                            <span>{$total_dev}</span></h4>
+                                        <p class="description">
+                                            Devoluções</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="panel task2 db mbm">
+                                    <div class="panel-body">
+                                        <p class="icon">
+                                            <i class="icon fa fa-box"></i>
+                                        </p>
+                                        <h4 class="value">
+                                            <span>{$totalcaixas}</span></h4>
+                                        <p class="description">
+                                            Total Liquido</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
                     </div>   
             </div>
-     </div>    
-
+    </div> 
         <div class="panel panel-yellow">
             <div class="panel-heading">Produção</div>
             <div class="panel-body">
@@ -86,26 +104,25 @@
         </div>
  </div>  
 
+ <div class="panel panel-blue">
+    <div class="panel-heading">Pedidos em Carteira - {$data_hora}</div>
+    <div class="panel-body">
+            <div id="sum_box" class="row mbl">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel profit db mbm">
+                            <div class="panel-body">
+                                <p class="icon">
+                                    <i class="icon fa fa-box"></i>
+                                </p>
+                                <h4 class="value">
+                                    <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">{$totalcaixascarteira}</span></h4>
+                                <p class="description">
+                                    Caixas</p>                   
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="panel panel-blue">
-                <div class="panel-heading">Pedidos em Carteira - {$data_hora}</div>
-                <div class="panel-body">
-                        <div id="sum_box" class="row mbl">
-                                <div class="col-sm-6 col-md-3"></div>
-                                    <div class="panel profit db mbm">
-                                        <div class="panel-body">
-                                            <p class="icon">
-                                                <i class="icon fa fa-shopping-cart"></i>
-                                            </p>
-                                            <h4 class="value">
-                                                <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">{$totalcaixascarteira}</span></h4>
-                                            <p class="description">
-                                                Caixas</p>                   
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>   
-                </div>
-        </div>                
-</div>
+            </div>   
+    </div>
+              
 <!--[/main]-->

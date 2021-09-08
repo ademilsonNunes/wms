@@ -40,6 +40,7 @@ use Adianti\Wrapper\BootstrapFormBuilder;
     private $totalProd   = 0;
     private $totalCarreg = 0;
     private $totalDev    = 0;    
+    private $bcv         = array();
      
     function __construct()
     {
@@ -72,7 +73,9 @@ use Adianti\Wrapper\BootstrapFormBuilder;
          $this->onSend();
 
          $totalCaixas = (float)$this->fatDia->QTDE;
-         $totalCaixas = number_format($totalCaixas,0,',', '.');
+    //     $totalCaixas = number_format($totalCaixas,0,',', '.');
+
+         $totalBoniCaixas = (float)$this->bcv[0]['QTDE'];
 
     //     $totalFat = (float)$this->fatDia->LIQ;
 //         $totalFat = 'R$ ' . number_format($totalFat,2,',', '.');
@@ -90,7 +93,7 @@ use Adianti\Wrapper\BootstrapFormBuilder;
    //      $totalDevValor       = (float)$this->totalDev->LIQ;
 
          //Bonificação Verba e Contrato
-         $bcv =  $this->getBCV( '', '' );
+      //   $bcv =  $this->getBCV( '', '' );
 
          /*
         echo '<pre>';
@@ -108,11 +111,13 @@ use Adianti\Wrapper\BootstrapFormBuilder;
          $totalContrQtde   = (float)$bcv[0][2]['QTDE'];
          $totalContrLiq    = (float)$bcv[0][2]['LIQ'];
 */
-
-         $html->enableSection('main', ['totalcaixas'         =>  $totalCaixas, 
+         $totalbruto = ( $totalCaixas + $totalBoniCaixas + $totalDevCaixas);
+         $html->enableSection('main', ['totalcaixas'         =>  number_format($totalCaixas, 0, ',', '.'), 
   //                                     'totalfat'            =>  $totalFat,
     //                                   'mediofat'            =>  $medioFat,
-                                       'totalcaixascarteira' =>  number_format($totalcaixascarteira, 0, ',', '.'),
+                                       'totalcaixascarteira' => number_format($totalcaixascarteira, 0, ',', '.'),
+                                       'totalbonifcaixas'    => $totalBoniCaixas,
+                                       'totalbruto'          => number_format($totalbruto, 0, ',', '.'),
        //                                'totalvalorcarteira'  => 'R$ ' . number_format($totalvalorcarteira, 2, ',', '.'),
                                 //       'mediocarteira'       => 'R$ ' . number_format($mediocarteira, 2, ',', '.'),
                                        'totalproducao'       =>  number_format($totalProd, 0, ',', '.'),

@@ -112,6 +112,10 @@
             <action>ConsultaPaleteHist</action>
             <icon>far:circle fa-fw</icon>
           </menuitem>
+          <menuitem label="Resumo Operacional">
+            <action>TDashboardFatOnlineOper</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
         </menu>
       </menuitem>
       <menuitem label="Relatórios">
