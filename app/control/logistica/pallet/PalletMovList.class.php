@@ -51,12 +51,14 @@ class PalletMovList extends TPage
 
         $this->setDatabase('bisobel');               // defines the database
         $this->setActiveRecord('MovPallet');           // defines the active record
-        $this->setDefaultOrder('ID', 'asc');         // defines the default order
-        $this->setLimit(100);
+    //
+        $this->setDefaultOrder('ID', 'desc');         // defines the default order
+        $this->setLimit(10);
         
-       // $criteria = new TCriteria;
-       // $criteria->add(new TFilter('age',  '<', 16), TExpression::OR_OPERATOR); 
-      //  $this->setCriteria($criteria); // define a standard filter
+        $criteria = new TCriteria;
+        $criteria->setProperty('order', 'ID');
+        $criteria->setProperty('direction', 'desc');
+        $this->setCriteria($criteria); // define a standard filter
 
     
         $this->addFilterField('ID', '=', 'ID'); // filterField, operator, formField
@@ -186,6 +188,7 @@ class PalletMovList extends TPage
         
         parent::add($container);
     }
+
     
     /**
      * getTransp

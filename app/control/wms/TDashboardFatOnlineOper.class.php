@@ -111,7 +111,7 @@ use Adianti\Wrapper\BootstrapFormBuilder;
          $totalContrQtde   = (float)$bcv[0][2]['QTDE'];
          $totalContrLiq    = (float)$bcv[0][2]['LIQ'];
 */
-         $totalbruto = ( $totalCaixas + $totalBoniCaixas + $totalDevCaixas);
+         $totalbruto = ( $totalCaixas + $totalBoniCaixas + ($totalDevCaixas * -1));
          $html->enableSection('main', ['totalcaixas'         =>  number_format($totalCaixas, 0, ',', '.'), 
   //                                     'totalfat'            =>  $totalFat,
     //                                   'mediofat'            =>  $medioFat,
@@ -134,7 +134,7 @@ use Adianti\Wrapper\BootstrapFormBuilder;
             $container->style = 'width: 100%';
             $panel = new TPanelGroup('Resumo de Operações');        
             $panel->add($this->form);
-        //    $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+            $container->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
             $container->add($panel);  
             $container->add($html); 
             parent::add($container);           

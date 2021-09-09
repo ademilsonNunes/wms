@@ -69,7 +69,7 @@ class PalletMovForm extends TWindow
         $VEIC        = new TEntry('VEICULO');
         $OBS         = new TText('OBS');
         $PESO        = new TEntry('PESO');
-        $QTDCX       = new TEntry('QTDE_CXS');
+       // $QTDCX       = new TEntry('QTDE_CXS');
 
         $TIPO = new TCombo('TIPO');
         $TIPO->enableSearch();
@@ -127,7 +127,7 @@ class PalletMovForm extends TWindow
         $this->form->addFields( [ new TLabel('Placa') ],      [ $PLACA ] );
         $this->form->addFields( [ new TLabel('Veiculo') ],    [ $VEIC ] );
         $this->form->addFields( [ new TLabel('Peso') ],       [ $PESO ] );
-        $this->form->addFields( [ new TLabel('Qtde.Cxs') ],   [ $QTDCX ] );
+      //  $this->form->addFields( [ new TLabel('Qtde.Cxs') ],   [ $QTDCX ] );
         $this->form->addFields( [ new TLabel('OBS') ],        [ $OBS ] );
         $this->form->addFields( [ new TLabel('QTDE') ],       [ $QTDE ] );
        // $this->form->addFields( [ new TLabel('Retorno') ],     [ $QTDERET ] );
@@ -164,13 +164,13 @@ class PalletMovForm extends TWindow
      //  $this->form->addHeaderActionLink( _t('Close'), new TAction([$this, 'onClose']), 'fa:times red');
         
         //  $TIPO->addValidation('TIPO', new TRequiredValidator); 
-        /*
-        $CODTRANSP->addValidation('CODTRANSP', new TRequiredValidator);
+        
+    //    $CODTRANSP->addValidation('CODTRANSP', new TRequiredValidator);
         $QTDE->addValidation('QTDE', new TRequiredValidator); 
         $DTEMISSAO->addValidation('DTEMISSAO', new TRequiredValidator); 
         $ITEM->addValidation('ITEM', new TRequiredValidator); 
         $MOTIVO->addValidation('MOTIVO', new TRequiredValidator); 
-        */
+        
         
         // vertical box container
         $container = new TVBox;
