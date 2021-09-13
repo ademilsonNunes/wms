@@ -65,13 +65,12 @@ class PalletMovList extends TPage
         $this->addFilterField('ROMANEIO', 'like', 'ROMANEIO'); // filterField, operator, formField
         $this->addFilterField('CODTRANSP', 'like', 'CODTRANSP'); // filterField, operator, formField
         $this->addFilterField('DTEMISSAO', 'like', 'DTEMISSAO'); // filterField, operator, formField
-
+        
 
         // creates the form
         $this->form = new BootstrapFormBuilder('form_search_mov_pallet');
         $this->form->setFormTitle('Movimentação de Paletes');
         
-
         // create the form fields
         $id        = new TEntry('ID');
         $ROMANEIO   = new TDBSeekButton('ROMANEIO', 'protheus', 'form_search_mov_pallet', 'Romaneio', 'ZZQ_ROMANE');
