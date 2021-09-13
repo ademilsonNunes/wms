@@ -202,7 +202,16 @@ class PalletMovList extends TPage
        {
            TTransaction::open('protheus');
            $transp = Transp::find($id);
-           $content = $transp->A4_NOME;                     
+
+           if (!empty($transp->A4_NOME))
+           {
+             $content = $transp->A4_NOME;   
+           }
+           else
+           {
+            $content = '';
+           }
+                            
       
            TTransaction::close();
 
