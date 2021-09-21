@@ -66,7 +66,6 @@ class PalletMovList extends TPage
         $this->addFilterField('CODTRANSP', 'like', 'CODTRANSP'); // filterField, operator, formField
         $this->addFilterField('DTEMISSAO', 'like', 'DTEMISSAO'); // filterField, operator, formField
         
-
         // creates the form
         $this->form = new BootstrapFormBuilder('form_search_mov_pallet');
         $this->form->setFormTitle('Movimentação de Paletes');
