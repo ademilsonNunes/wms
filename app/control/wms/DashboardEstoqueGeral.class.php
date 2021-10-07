@@ -12,6 +12,7 @@ use Adianti\Widget\Datagrid\TDataGrid;
 use Adianti\Widget\Datagrid\TDataGridColumn;
 use Adianti\Widget\Datagrid\TPageNavigation;
 use Adianti\Widget\Dialog\TMessage;
+use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TSeekButton;
 use Adianti\Widget\Template\THtmlRenderer;
 use Adianti\Widget\Util\TXMLBreadCrumb;
@@ -387,10 +388,10 @@ class DashboardEstoqueGeral extends TPage
                PROD.APTO_SEP   AS 'APTO_SEP',
              CONCAT(PROD.PREDIO_RET, '.', PROD.RUA_RET, '.', CAST(PROD.BLOCO_RET AS VARCHAR), '.', CAST(PROD.APTO_RET AS VARCHAR)) AS 'END_RET',
              CONCAT(PROD.PREDIO_SEP, '.', PROD.RUA_SEP, '.', CAST(PROD.BLOCO_SEP AS VARCHAR), '.', CAST(PROD.APTO_SEP AS VARCHAR)) AS 'END_SEP',
-             'FAMILIA'      = (SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z6' AND X5_CHAVE = B1_XFAMILI AND X5_FILIAL = '01'),
-             'MARCA'        = (SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z8' AND X5_CHAVE = B1_XMARCA  AND X5_FILIAL = '01'),
-             'CATEGORIA'    = (SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z9' AND X5_CHAVE = B1_XCATEGO AND X5_FILIAL = '01'),
-             'SUBCATEGORIA' = (SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z4' AND X5_CHAVE = B1_XSUBCAT AND X5_FILIAL = '01'),
+             'FAMILIA'      = ( SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z6' AND X5_CHAVE = B1_XFAMILI AND X5_FILIAL = '01' ),
+             'MARCA'        = ( SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z8' AND X5_CHAVE = B1_XMARCA  AND X5_FILIAL = '01' ),
+             'CATEGORIA'    = ( SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z9' AND X5_CHAVE = B1_XCATEGO AND X5_FILIAL = '01' ),
+             'SUBCATEGORIA' = ( SELECT X5_DESCRI FROM Protheus_Producao.dbo.SX5010 WHERE X5_TABELA = 'Z4' AND X5_CHAVE = B1_XSUBCAT AND X5_FILIAL = '01' ),
                ESTQ.STATUS     AS 'STATUS_COD', 
                ESTQ.QTDE_EG    AS 'QTDE_EG', 
                ESTQ.QTDE_SEP   AS 'QTDE_SEP', 
