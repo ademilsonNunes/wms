@@ -26,7 +26,7 @@ class MovEstoqueDashboard extends TPage
         $frame = new TElement('iframe');
         $frame->width  = '1259';
         $frame->height = '1020';
-        $frame->src = 'https://app.powerbi.com/view?r=eyJrIjoiZDExZGUzNDItYmRjZC00MDRlLThjYjYtYjUzMmRiMzc3ZTUxIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9';
+        $frame->src = 'https://app.powerbi.com/view?r=eyJrIjoiZDExZGUzNDItYmRjZC00MDRlLThjYjYtYjUzMmRiMzc3ZTUxIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9&pageName=ReportSection';
         $frame->frameborder = '0';
         $frame->allowFullScreen = 'true';
 

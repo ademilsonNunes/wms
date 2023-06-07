@@ -26,7 +26,7 @@ class ComprasDashBoard extends TPage
         $frame = new TElement('iframe');
         $frame->width  = '1259';
         $frame->height = '1020';
-        $frame->src = 'https://www.powerbi.com/view?r=eyJrIjoiMzc0YmQzZDctY2EwMC00ZjdiLTk2NWItNzA2MDQyNGY0MzdiIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9';
+        $frame->src = 'https://app.powerbi.com/view?r=eyJrIjoiMzc0YmQzZDctY2EwMC00ZjdiLTk2NWItNzA2MDQyNGY0MzdiIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9';
         $frame->frameborder = '0';
         $frame->allowFullScreen = 'true';
 

@@ -147,7 +147,7 @@ class TEntry extends TField implements AdiantiWidgetInterface
      */
     public function getPostData()
     {
-        $name = str_replace(['[',']'], ['',''], $this->name);
+        $name = str_replace(['[',']'], ['',''], trim($this->name));
         
         if (isset($_POST[$name]))
         {

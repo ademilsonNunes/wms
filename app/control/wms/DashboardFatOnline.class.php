@@ -1,5 +1,14 @@
 <?php
 
+/*
+    ini_set('log_errors','On');
+    ini_set('display_errors','Off');
+    ini_set('error_reporting', E_ALL );
+    define('WP_DEBUG', false);
+    define('WP_DEBUG_LOG', true);
+    define('WP_DEBUG_DISPLAY', false);
+*/
+
 use Adianti\Control\TAction;
 use Adianti\Control\TPage;
 use Adianti\Control\TWindow;
@@ -67,16 +76,18 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
             $medioFatAc = (float)$fatMes->PRECO_MEDIO;
             $medioFatAc = 'R$ ' .  number_format($medioFatAc,2,',', '.');
 
-            $totalCaixasMediaDia = round(($totalCaixasAc / $diaUtil),3);     
+            $totalCaixasMediaDia = round(((float)$totalCaixasAc / (float)$diaUtil),3);     
             $totalmediofat = ( (float)$fatMes->LIQ / $diaUtil );        
             
             //Média mês
-            $mediomes = ($totalmediofat / $totalCaixasMediaDia) / 1000  ;      
+            //$mediomes = ($totalmediofat / $totalCaixasMediaDia) / 1000  ;      
+            $mediomes = ($totalmediofat / $totalCaixasMediaDia)  ;      
             
             //Projeção
             $totalcaixasprojecao = ($totalCaixasMediaDia * $diasUteis);
             $totalvalorprojecao  = ($totalmediofat * $diasUteis);
-            $mediaprojecao      = ( $totalvalorprojecao / $totalcaixasprojecao) / 1000;
+           // $mediaprojecao      = ( $totalvalorprojecao / $totalcaixasprojecao) / 1000;
+            $mediaprojecao      = ( $totalvalorprojecao / $totalcaixasprojecao);
 
             //Carteira
             $totalcaixascarteira = (float)$carteira->QTDE;
@@ -215,7 +226,7 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
      */
      function getDiasUteis()
      {
-         $query = "SELECT BISOBEL.dbo.fncQtde_Dias_Uteis_Mes( (SELECT EOMONTH ( getdate() )) ) +2 AS QTDDIASEUTEIS";
+         $query = "SELECT BISOBEL.dbo.fncQtde_Dias_Uteis_Mes( (SELECT EOMONTH ( getdate() )) ) + 2 AS QTDDIASEUTEIS";
  
          try 
          {
@@ -243,7 +254,8 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
       */
      function getDiaUtil()
      {
-         $query = "SELECT BISOBEL.dbo.fncQtde_Dias_Uteis_Mes( getdate()) +1 DIAUTIL";
+
+         $query = "SELECT BISOBEL.dbo.fncQtde_Dias_Uteis_Mes( getdate())  + 0.5 DIAUTIL";
          //$query = "SELECT BISOBEL.dbo.fncQtde_Dias_Uteis_Mes( getdate()) -1 DIAUTIL";
  
          try 
@@ -262,9 +274,11 @@ use Adianti\Wrapper\BootstrapDatagridWrapper;
              
              TTransaction::close();
          } catch (Exception $e) 
-         {
+         {  
              new TMessage('error', $e->getMessage());
          }
+         
+        //return 11.5;
      }
 
     /**

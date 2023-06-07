@@ -49,26 +49,28 @@ class PalletMovList extends TPage
     {
         parent::__construct();       
 
-        $this->setDatabase('bisobel');               // defines the database
+        $this->setDatabase('bisobel');                 // defines the database
         $this->setActiveRecord('MovPallet');           // defines the active record
     //
-        $this->setDefaultOrder('ID', 'desc');         // defines the default order
+        $this->setDefaultOrder('ID', 'desc');          // defines the default order
         $this->setLimit(10);
         
         $criteria = new TCriteria;
         $criteria->setProperty('order', 'ID');
         $criteria->setProperty('direction', 'desc');
-        $this->setCriteria($criteria); // define a standard filter
+        $this->setCriteria($criteria);                 // define a standard filter
 
     
-        $this->addFilterField('ID', '=', 'ID'); // filterField, operator, formField
-        $this->addFilterField('ROMANEIO', 'like', 'ROMANEIO'); // filterField, operator, formField
+        $this->addFilterField('ID', '=', 'ID');                  // filterField, operator, formField
+        $this->addFilterField('ROMANEIO', 'like', 'ROMANEIO');   // filterField, operator, formField
         $this->addFilterField('CODTRANSP', 'like', 'CODTRANSP'); // filterField, operator, formField
         $this->addFilterField('DTEMISSAO', 'like', 'DTEMISSAO'); // filterField, operator, formField
         
+
         // creates the form
         $this->form = new BootstrapFormBuilder('form_search_mov_pallet');
         $this->form->setFormTitle('Movimentação de Paletes');
+        
         
         // create the form fields
         $id        = new TEntry('ID');
@@ -97,8 +99,9 @@ class PalletMovList extends TPage
         $DTEMISSAO->setSize('30%');
    
          $trasp->setEditable(FALSE);
+
         // keep the form filled during navigation with session data
-       // $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
+        // $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
         
         // add the search form actions
         $btn = $this->form->addAction(_t('Find'), new TAction([$this, 'onSearch']), 'fa:search');

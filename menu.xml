@@ -10,6 +10,10 @@
             <action>DashboardFatOnline</action>
             <icon>fas:circle fa-fw</icon>
           </menuitem>
+          <menuitem label="Carteira Pedidos">
+            <action>TCarteira</action>
+            <icon>fas:calendar-check fa-fw</icon>
+          </menuitem>
           <menuitem label="Resumo">
             <action>TDashboardFatOnline</action>
             <icon>fas:circle fa-fw</icon>
@@ -34,6 +38,19 @@
   <menuitem label="Logistica">
     <icon>fas:dolly fa-fw</icon>
     <menu>
+      <menuitem label="Embarque">
+        <icon>fas:truck-loading fa-fw</icon>
+        <menu>
+          <menuitem label="Estacionamento">
+            <action>TProgEmbConsolid</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
+          <menuitem label="Prog. Embarque">
+            <action>TProgEmbarque</action>
+            <icon>far:circle fa-fw</icon>
+          </menuitem>
+        </menu>
+      </menuitem>
       <menuitem label="Mov. Pallet">
         <action>PalletMovList</action>
         <icon>far:circle fa-fw</icon>
@@ -51,12 +68,16 @@
   <menuitem label="Produção">
     <icon>fas:clipboard-list fa-fw</icon>
     <menu>
-      <menuitem label="Dashboard">
+      <menuitem label="PCP">
         <icon>far:chart-bar fa-fw</icon>
         <menu>
-          <menuitem label="Produção">
+          <menuitem label="Produção PBI">
             <action>ProducaoSobelDashBoard</action>
             <icon>far:circle fa-fw</icon>
+          </menuitem>
+          <menuitem label="Apon. Produção">
+            <action>TProdAponList</action>
+            <icon>fas:boxes fa-fw</icon>
           </menuitem>
         </menu>
       </menuitem>

@@ -26,7 +26,7 @@ class FaturamentoDevDashBoard extends TPage
         $frame = new TElement('iframe');
         $frame->width  = '1259';
         $frame->height = '1020';
-        $frame->src = 'https://www.powerbi.com/view?r=eyJrIjoiMjkzNGFhNjItZmVlOS00OGUxLWFiMDQtMmQxNGNiYjJiNzFlIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9';
+        $frame->src = 'https://app.powerbi.com/view?r=eyJrIjoiMjkzNGFhNjItZmVlOS00OGUxLWFiMDQtMmQxNGNiYjJiNzFlIiwidCI6Ijc0MjgwOGM5LWQyMjEtNGI0OS05NTc0LTY2MjBlZTY2YmYwZSJ9&pageName=ReportSection';
         $frame->frameborder = '0';
         $frame->allowFullScreen = 'false';
         $frame->scrolling = 'auto';
